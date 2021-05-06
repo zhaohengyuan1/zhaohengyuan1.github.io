@@ -8,6 +8,7 @@
     <title>Hengyuan Zhao</title>
 </head>
 
+<link rel="Shortcut Icon" href="./hengyuan_icon.png" type="image/x-icon">
 <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
 <!-- <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"> -->
@@ -36,7 +37,7 @@
     }
     
     a:hover {
-        color: orange;
+        /* color: orange; */
         text-decoration: underline;
     }
     
@@ -47,7 +48,7 @@
         margin: 0 auto;
         /* background-color: ghostwhite; */
         /* border-color: #c9d1c9; */
-        /* font-size: 18px; */
+        font-size: 18px;
         /* font-family: "Open Sans", "Helvetica Neue", Helvetica; */
     }
     
@@ -94,24 +95,25 @@
     }
     
     .paper_title {
-        font-size: 18px;
+        font-size: 22px;
         color: #1C86EE;
         margin: 0 0 0.2em 0;
         /* color: orange; */
     }
     
     .paper_author {
-        font-size: 14px;
+        font-size: 18px;
         margin: 0 0 0.2em 0;
     }
     
     .paper_pub {
-        font-size: 14px;
+        font-size: 18px;
         margin: 0 0 0.2em 0;
     }
-    /* .paper_link {
-        color: orange;
-    } */
+    
+    .paper_links {
+        margin: 0 0 1em 0;
+    }
 </style>
 
 
@@ -120,13 +122,18 @@
         <div class="main">
             <h2 class="myname">Hengyuan Zhao (赵恒远)</h2>
             <div class="title">
-                <div>Research Assistant at Shenzhen Institutes of Advanced Technology (SIAT)</div>
-                <div>Email: zhaohengyuan99@gmail.com</div>
-                <div>Live in Shenzhen, China</div>
+                Hengyuan is a research intern at Baidu Inc., mentored by Wenhao Wu. His work is to help repair the old films or old photos by using image restoration techniques such as super-resolution, denoising, deblurring and colorization. At the same time, He also
+                supervised by <a href="https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=zh-CN">Chao Dong</a> and <a href="https://scholar.google.com/citations?user=gFtI-8QAAAAJ&hl=zh-CN">Yu Qiao</a> as a research assistant
+                at
+                <a href="http://xpixel.group/people.html"> XPixel Group</a> at Shenzhen Institutes of Advanced Technology (SIAT). He has done several works in image denoising, efficient super-resolution and image/video colorization.
             </div>
 
             <div class="self_link">
                 <span>Links: </span>
+                <span>
+                    <a href="mailto:zhaohengyuan99@gmail.com"><i class="fa fa-envelope icons"></i> Email</a>
+                </span>
+                <span>/</span>
                 <span>
                     <a href="https://github.com/zhaohengyuan1"><i class="fa fa-github icons" aria-hidden="true"></i> GitHub</a>
                 </span>
@@ -140,14 +147,19 @@
                 </span>
             </div>
 
+            <h2 class="h2_title">Research Interests</h2>
+            <div>
+                My primary research interests include low level vision and generative models.
+            </div>
+
             <h2 class="h2_title">Experience</h2>
             <div>
-                <strong>2020/12-now:</strong> I join the Vision Technology (VIS), Baidu Inc. as a research intern and work with
+                <strong>2020/12-Now:</strong> I join the Vision Technology (VIS), Baidu Inc. as a research intern and work with
                 <a href="https://whwu95.github.io/">Wenhao Wu</a>.
             </div>
             <div>
-                <strong>2019/09-now:</strong> I am a research assistant at SIAT and supervised by Prof.
-                <a href="http://www.cs.cityu.edu.hk/~cssamk/research_group/index.html">Chao Dong</a>.
+                <strong>2019/09-Now:</strong> I am a research assistant at SIAT and supervised by Prof.
+                <a href="https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=zh-CN">Chao Dong</a> and <a href="https://scholar.google.com/citations?user=gFtI-8QAAAAJ&hl=zh-CN">Yu Qiao</a>.
             </div>
             <div>
                 <strong>2016/09-2020/06:</strong> I was a undergraduate student at Nanjing University of Posts and Telecommunications, Nanjing, China.
@@ -173,7 +185,7 @@
                 </li>
                 <li>
                     <span>
-                        [05/2020] Participate the Efficient Super-Resoluton Challenge of AIM 2020 (ECCV Workshop). We got fouth places and lowest parameters.
+                        [05/2020] Participate the Efficient Super-Resoluton Challenge of AIM 2020 (ECCV Workshop). We got fourth place and lowest parameters.
                     </span>
                 </li>
                 <li>
@@ -189,15 +201,18 @@
             </ul>
 
             <h2 class="h2_title">Publications</h2>
+
+            <h3>Two papers are waited to release.</h3>
             <table>
 
                 <tr class="pub_tr">
-                    <td><img src="./publication_imgs/ClassSR2021.png" alt="" class="pub_img"></td>
+                    <td><img src="./publication_imgs/ClassSR_CVPR2021.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <a href="" class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</a>
-                        <div class="paper_author">Xiangtao Kong, <b style="text-decoration: underline;">Hengyuan Zhao</b>, Yu Qiao, Chao Dong</div>
-                        <div class="paper_pub"> <i>Computer Vision and Pattern Recognition (CVPR)</i>, 2021</div>
-                        <div>
+                        <!-- <a href="" class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</a> -->
+                        <div class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</div>
+                        <div class="paper_author">Xiangtao Kong, <b style="color:orange">Hengyuan Zhao</b>, Yu Qiao, Chao Dong</div>
+                        <div class="paper_pub"> <i>Computer Vision and Pattern Recognition <span style="color: orange;">(CVPR 2021)</span></i></div>
+                        <div class="paper_links">
                             <span>
                                 <a class="paper_link" href="https://arxiv.org/pdf/2103.04039.pdf">Paper(arxiv)</a>
                             </span>
@@ -212,19 +227,22 @@
                         </div>
                     </td>
                 </tr>
+
                 <tr class="pub_tr">
-                    <td><img src="./publication_imgs/CSRNet_pami.png" alt="" class="pub_img"></td>
+                    <td><img src="./publication_imgs/pan_ECCV2020.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <a href="" class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</a>
-                        <div class="paper_author">Yihao Liu, Jingwen He, Xiangyu Chen, Zhengwen Zhang, <b style="text-decoration: underline;">Hengyuan Zhao</b>, Chao Dong, Yu Qiao</div>
-                        <!-- <div class="paper_pub">European Conference on Computer Vision Workshops (ECCVW), 2020</div> -->
-                        <div>
+                        <!-- <a href="" class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</a> -->
+                        <div class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</div>
+                        <div class="paper_author"><b style="color:orange">Hengyuan Zhao</b>, Xiangtao Kong, Jingwen He, Yu Qiao, Chao Dong</div>
+                        <div class="paper_pub"> <i>European Conference on Computer Vision Workshops <span style="color: orange;">(ECCVW 2020)</span></i></div>
+                        <div class="paper_pub"> We got fourth place of Efficient Image Super Resolution Challenge in total 150 participants. (The lowest paramters, 272K)</div>
+                        <div class="paper_links">
                             <span>
-                                <a class="paper_link" href="https://arxiv.org/pdf/2104.06279.pdf">Paper(arxiv)</a>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2010.01073.pdf">Paper(arxiv)</a>
                             </span>
                             <span>|</span>
                             <span>
-                                <a class="paper_link" href="https://github.com/hejingwenhejingwen/CSRNet">Codes</a>
+                                <a class="paper_link" href="https://github.com/zhaohengyuan1/PAN">Codes</a>
                             </span>
                             <span>|</span>
                             <span>
@@ -233,19 +251,44 @@
                         </div>
                     </td>
                 </tr>
+
                 <tr class="pub_tr">
-                    <td><img src="./publication_imgs/pan2020.png" alt="" class="pub_img"></td>
+                    <td><img src="./publication_imgs/SDNet_ICCV2019.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <a href="" class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</a>
-                        <div class="paper_author"><b style="text-decoration: underline;">Hengyuan Zhao</b>, Xiangtao Kong, Jingwen He, Yu Qiao, Chao Dong</div>
-                        <div class="paper_pub"> <i>European Conference on Computer Vision Workshops (ECCVW)</i>, 2020</div>
-                        <div>
+                        <!-- <a href="" class="paper_title">A Simple and Robust Deep Convolutional Approach to Blind Image Denoising</a> -->
+                        <div class="paper_title">A Simple and Robust Deep Convolutional Approach to Blind Image Denoising</div>
+                        <div class="paper_author"><b style="color:orange">Hengyuan Zhao</b>, Wenze Shao, Bingkun Bao, Haibo Li</div>
+                        <div class="paper_pub"> <i>International Conference on Computer Vision Workshops <span style="color: orange;">(ICCVW 2019)</span></i></div>
+                        <div class="paper_links">
                             <span>
-                                <a class="paper_link" href="https://arxiv.org/pdf/2010.01073.pdf">Paper(arxiv)</a>
+                                <a class="paper_link" href="https://openaccess.thecvf.com/content_ICCVW_2019/papers/LCI/Zhao_A_Simple_and_Robust_Deep_Convolutional_Approach_to_Blind_Image_ICCVW_2019_paper.pdf">Paper</a>
                             </span>
                             <span>|</span>
                             <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/PAN">Codes</a>
+                                <a class="paper_link" href="https://github.com/zhaohengyuan1/SDNet">Codes</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="">BibTex</a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="pub_tr">
+                    <td><img src="./publication_imgs/CSRNet_pami.png" alt="" class="pub_img"></td>
+                    <td class="paper_info" valign="top">
+                        <!-- <a href="" class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</a> -->
+                        <div class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</div>
+                        <div class="paper_author">Yihao Liu, Jingwen He, Xiangyu Chen, Zhengwen Zhang, <b style="color:orange">Hengyuan Zhao</b>, Chao Dong, Yu Qiao</div>
+                        <!-- <div class="paper_pub">European Conference on Computer Vision Workshops (ECCVW), 2020</div> -->
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2104.06279.pdf">Paper(arxiv)</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/hejingwenhejingwen/CSRNet">Codes</a>
                             </span>
                             <span>|</span>
                             <span>
