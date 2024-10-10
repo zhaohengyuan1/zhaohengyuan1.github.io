@@ -80,6 +80,10 @@
         padding: 0 0 0 1.3em;
     }
     
+    table {
+        border-spacing: 0 1em; /* 上下间隙为 10px */
+    }
+
     .pub_img {
         /* width: 60%; */
         width: 260px;
@@ -87,29 +91,35 @@
         /* border: 1px solid #30363d; */
         border-radius: 6px;
     }
-    /* .pub_tr {
-        padding: 0 0 2em 0;
-    } */
     
     .paper_info {
         padding: 0 0 0 0.5em;
+        text-align: left;
+        vertical-align: middle;
     }
     
     .paper_title {
-        font-size: 22px;
-        color: #1C86EE;
+        font-size: 18px;
+        /* color: #1C86EE; */
+        color: #fafafa;
         margin: 0 0 0.2em 0;
-        /* color: orange; */
+        font-weight: bold;
     }
     
     .paper_author {
-        font-size: 18px;
+        font-size: 16px;
         margin: 0 0 0.2em 0;
     }
     
     .paper_pub {
-        font-size: 18px;
+        font-size: 16px;
         margin: 0 0 0.2em 0;
+    }
+
+    .paper_decription {
+        font-size: 16px;
+        margin: 0.2em 0 0.2em 0;
+        color: rgb(170,170,170);
     }
     
     .paper_links {
@@ -121,14 +131,19 @@
 <body>
     <div class="page">
         <div class="main">
-            <h2 class="myname">Hengyuan Zhao (赵恒远)</h2>
+            <h2 class="myname">Henry Hengyuan Zhao</h2>
+            
+            <img src="me.jpg" width="200px">
             <div class="title">
-                Hengyuan is a research intern at <a href="https://www.sensetime.com">SenseTime</a> Inc., mentored by Fan Zhang. His work focuses on low-light image denosing. Previously, He was a research intern at VIS <a href=https://www.baidu.com/">Baidu</a> Inc. focusing on restoring the old films or old photos by using image restoration techniques such as super-resolution, denoising, deblurring and colorization. At the same time, He also
-                supervised by <a href="https://scholar.google.com.hk/citations?user=OSDCB0UAAAAJ&hl=zh-CN">Chao Dong</a> and <a href="https://scholar.google.com/citations?user=gFtI-8QAAAAJ&hl=zh-CN">Yu Qiao</a> as a research assistant
-                at
-                <a href="http://xpixel.group/people.html"> XPixel Group</a> at Shenzhen Institutes of Advanced Technology (SIAT). He has done several works in image denoising, efficient super-resolution and image/video colorization.
+                Hi👋, this is Henry. I'm a third-year PhD student at <a href="https://sites.google.com/view/showlab">Show Lab</a>, National University of Singapore, under the supervision of Prof. <a href="https://sites.google.com/view/showlab/home?authuser=0">Mike Zheng Shou</a>. In the past time, I've been fortunate to work with <a href="https://panzhous.github.io/">Pan Zhou</a>. 
             </div>
 
+            <div class="title">
+                I am generally interested in multimodal understanding and AI automation. My recent focus is on building intelligent AI for solving real-world problems and explore the future role of current AI model.
+            </div>
+
+            <div style="margin: 0.5em 0 1em 0"><q>1. Define a right problem to work on. 2. Solve it from the first principle.</q>
+            </div>
             <div class="self_link">
                 <span>Links: </span>
                 <span>
@@ -144,11 +159,11 @@
                 </span>
                 <span>/</span>
                 <span>
-                    <a href="https://zhaohengyuan1.github.io/hengyuan_CV.pdf"><i class="ai ai-cv icons"></i></a>
+                    <a href="https://twitter.com/ZHHHYuan"><i class="fa-brands fa-x-twitter"></i>Twitter</a>
                 </span>
             </div>
 
-            <h2 class="h2_title">Research Brief</h2>
+            <!-- <h2 class="h2_title">Research Brief</h2>
             <div style="text-align:justify;">
                 My primary research interests include low-level vision and generative models. The expectation of my research is that the work should be simple and the topic should be practical. The research work should be better to reveal the essence of problems. In
                 my research experience, I have done two research works of efficient image super-resolution for providing the solution to saving the processing time. One work is published in AIM2020, which introduces a simple design of attention mechanism
@@ -156,9 +171,9 @@
                 a large image (above 2K), we propose a framework called "ClassSR" which incoporates the classifcation network into our algorithm to help other super-resolution methods save more FLOPs with higher performance. In addition, I also spend
                 the efforts of fully automatic colorization and deep exemplar-based colorization. To sovle the inconsistency of colorizing video clips by using a worthy image colorization approach, we introduce a novel and general framework which adopts
                 deep feature propagation scheme to generate consecutive colorized video. Moreover, due to the unsatisfactory performance, I propose a very simple idea to implement the deep exemplar-based colorization.
-            </div>
+            </div> -->
 
-            <h2 class="h2_title">Experience</h2>
+            <!-- <h2 class="h2_title">Experience</h2>
             <div>
                 <strong>06/2021-present:</strong> I join SenseTime Inc. as a research intern and work with Fan Zhang.
             </div>
@@ -172,29 +187,49 @@
             </div>
             <div>
                 <strong>09/2016-06/2020:</strong> I was a undergraduate student at Nanjing University of Posts and Telecommunications, Nanjing, China.
-            </div>
+            </div> -->
 
-            <h2 class="h2_title">News</h2>
+            <h2 class="h2_title">📢 News</h2>
 
             <ul class="news_list">
                 <li>
                     <span>
-                        [06/2021] Join SenseTime, mentored by Fan Zhang.
+                        [09/2024] One paper is accpeted by NeurIPS 2024.
                     </span>
                 </li>
                 <li>
                     <span>
-                        [03/2021] One paper accepted by CVPR, 2021.
+                        [07/2024] One paper is accpeted by ECCV 2024.
                     </span>
                 </li>
                 <li>
                     <span>
-                        [12/2020] Join VIS, Baidu, mentored by Wenhao WU.
+                        [09/2023] One paper is accpeted by IJCV 2023.
                     </span>
                 </li>
                 <li>
                     <span>
-                        [08/2020] One paper accepted by ECCV Workshops, 2020.
+                        [08/2023] One paper is accpeted by TPAMI 2023.
+                    </span>
+                </li>
+                <!-- <li>
+                    <span>
+                        [06/2021] Join SenseTime as an intern.
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        [03/2021] One paper is accepted by CVPR, 2021.
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        [12/2020] Join VIS, Baidu, worked with Wenhao WU.
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        [08/2020] One paper is accepted by ECCV Workshops, 2020.
                     </span>
                 </li>
                 <li>
@@ -209,20 +244,97 @@
                 </li>
                 <li>
                     <span>
-                        [08/2019] One paper accepted by ICCV Workshops, 2019.
+                        [08/2019] One paper is accepted by ICCV Workshops, 2019.
                     </span>
-                </li>
+                </li> -->
             </ul>
 
-            <h2 class="h2_title">Publications</h2>
+            <h2 class="h2_title">🌺 Publications</h2>
 
-            <h3>Two papers are waited to release.</h3>
+            <h3>See full publications <a href="https://scholar.google.com/citations?user=QLSk-6IAAAAJ&hl=zh-CN">here</a>.</h3>
+
             <table>
 
                 <tr class="pub_tr">
+                    <td style="text-align: center;"><img src="./publication_imgs/lova3.png" alt="" width="260px" style="border-radius: 10px;"></td>
+                    <!-- <td></td> -->
+                    <td class="paper_info">
+                        <div class="paper_title">LOVA3: Learning to Visual Question Answering, Asking and Assessment</div>
+                        <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pan Zhou, Difei Gao, Mike Zheng Shou</div>
+                        <div class="paper_pub"> <i>Neural Information Processing Systems <span style="color: orange;">(NeurIPS 2024)</span></i></div>
+                        <div class="paper_decription">Can MLLMs have asking and assessment abilities similar to how humans learning knowledges? </div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2405.14974">Paper</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/showlab/LOVA3">Codes</a>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- <td></td> -->
+                </tr>
+
+                <tr class="pub_tr">
+                    <td style="text-align: center;"><img src="./publication_imgs/genixer_logo.png" alt="" width="150px" style="border-radius: 10px;"></td>
+                    <td class="paper_info">
+                        <div class="paper_title">Genixer: Empowering Multimodal Large Language Models as a Powerful Data Generator</div>
+                        <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pan Zhou, Mike Zheng Shou</div>
+                        <div class="paper_pub"> <i>European Conference on Computer Vision <span style="color: orange;">(ECCV 2024)</span></i></div>
+                        <div class="paper_decription">If MLLMs represent the state of the art, how do they perform in data generation? We developed two data generators for nine vision-language (VL) tasks.</div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2312.06731">Paper</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/zhaohengyuan1/Genixer">Codes</a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="pub_tr">
+                    <td><img src="./publication_imgs/sct_ijcv2023.png" alt="" width="260px" style="border-radius: 10px;"></td>
+                    <td class="paper_info">
+                        <div class="paper_title">SCT: A Simple Baseline for Parameter-Efficient Fine-Tuning via Salient Channels</div>
+                        <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pichao Wang, Yuyang Zhao, Hao Luo, Fan Wang, Mike Zheng Shou</div>
+                        <div class="paper_pub"> <i>International Journal of Computer Vision <span style="color: orange;">(IJCV 2023)</span></i></div>
+                        <div class="paper_decription">We found that tuning only a small number of task-specific channels, referred to as salient channels, is sufficient. This work represents a remarkable reduction of 780x in parameter costs compared to its full fine-tuning counterpart.</div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2309.08513">Paper</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/zhaohengyuan1/SCT">Codes</a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr class="pub_tr">
+                    <td><img src="./publication_imgs/srga_tpami2023.jpg" alt="" width="260px" style="border-radius: 10px;"></td>
+                    <td class="paper_info">
+                        <div class="paper_title">Evaluating the Generalization Ability of Super-Resolution Networks</div>
+                        <div class="paper_author">Yihao Liu, <b style="color:orange">Hengyuan Zhao</b>, Jinjin Gu, Yu Qiao, Chao Dong</div>
+                        <div class="paper_pub"> <i>IEEE Transactions on Pattern Analysis and Machine Intelligence <span style="color: orange;">(TPAMI 2023)</span></i></div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2205.07019">Paper</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/lyh-18/SRGA">Codes</a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- <tr class="pub_tr">
                     <td><img src="./publication_imgs/Color2Style.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <!-- <a href="" class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</a> -->
                         <div class="paper_title">Color2Style: Real-Time Exemplar-Based Image Colorization with Self-Reference Learning and Deep Feature Modulation</div>
                         <div class="paper_author"><b style="color:orange">Hengyuan Zhao*</b>, Wenhao Wu*, Yihao Liu*, Dongliang He. * indicates equal contribution.</div>
                         <div class="paper_pub"> <i>Arxiv.</i></div>
@@ -240,26 +352,22 @@
                             </span>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
 
                 <tr class="pub_tr">
                     <td><img src="./publication_imgs/ClassSR_CVPR2021.png" alt="" class="pub_img"></td>
-                    <td class="paper_info" valign="top">
+                    <td class="paper_info">
                         <!-- <a href="" class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</a> -->
                         <div class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</div>
                         <div class="paper_author">Xiangtao Kong, <b style="color:orange">Hengyuan Zhao</b>, Yu Qiao, Chao Dong</div>
                         <div class="paper_pub"> <i>Computer Vision and Pattern Recognition <span style="color: orange;">(CVPR 2021)</span></i></div>
                         <div class="paper_links">
                             <span>
-                                <a class="paper_link" href="https://arxiv.org/pdf/2103.04039.pdf">Paper(arxiv)</a>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2103.04039.pdf">Paper</a>
                             </span>
                             <span>|</span>
                             <span>
                                 <a class="paper_link" href="https://github.com/Xiangtaokong/ClassSR">Codes</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="">BibTex</a>
                             </span>
                         </div>
                     </td>
@@ -267,32 +375,27 @@
 
                 <tr class="pub_tr">
                     <td><img src="./publication_imgs/pan_ECCV2020.png" alt="" class="pub_img"></td>
-                    <td class="paper_info" valign="top">
+                    <td class="paper_info">
                         <!-- <a href="" class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</a> -->
                         <div class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</div>
                         <div class="paper_author"><b style="color:orange">Hengyuan Zhao</b>, Xiangtao Kong, Jingwen He, Yu Qiao, Chao Dong</div>
                         <div class="paper_pub"> <i>European Conference on Computer Vision Workshops <span style="color: orange;">(ECCVW 2020)</span></i></div>
-                        <div class="paper_pub"> We got fourth place of Efficient Image Super Resolution Challenge in total 150 participants. (The lowest paramters, 272K)</div>
+                        <div class="paper_decription"> Over 390 citations</div>
                         <div class="paper_links">
                             <span>
-                                <a class="paper_link" href="https://arxiv.org/pdf/2010.01073.pdf">Paper(arxiv)</a>
+                                <a class="paper_link" href="https://arxiv.org/pdf/2010.01073.pdf">Paper</a>
                             </span>
                             <span>|</span>
                             <span>
                                 <a class="paper_link" href="https://github.com/zhaohengyuan1/PAN">Codes</a>
                             </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="">BibTex</a>
-                            </span>
                         </div>
                     </td>
                 </tr>
 
-                <tr class="pub_tr">
+                <!-- <tr class="pub_tr">
                     <td><img src="./publication_imgs/SDNet_ICCV2019.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <!-- <a href="" class="paper_title">A Simple and Robust Deep Convolutional Approach to Blind Image Denoising</a> -->
                         <div class="paper_title">A Simple and Robust Deep Convolutional Approach to Blind Image Denoising</div>
                         <div class="paper_author"><b style="color:orange">Hengyuan Zhao</b>, Wenze Shao, Bingkun Bao, Haibo Li</div>
                         <div class="paper_pub"> <i>International Conference on Computer Vision Workshops <span style="color: orange;">(ICCVW 2019)</span></i></div>
@@ -304,22 +407,15 @@
                             <span>
                                 <a class="paper_link" href="https://github.com/zhaohengyuan1/SDNet">Codes</a>
                             </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="">BibTex</a>
-                            </span>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
 
-                <tr class="pub_tr">
+                <!-- <tr class="pub_tr">
                     <td><img src="./publication_imgs/CSRNet_pami.png" alt="" class="pub_img"></td>
                     <td class="paper_info" valign="top">
-                        <!-- <a href="" class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</a> -->
                         <div class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</div>
-                        <div class="paper_author">Yihao Liu, Jingwen He, Xiangyu Chen, Zhengwen Zhang, <b style="color:orange">Hengyuan Zhao</b>, Chao Dong, Yu Qiao</div>
-                        <!-- <div class="paper_pub">European Conference on Computer Vision Workshops (ECCVW), 2020</div> -->
-                        <div class="paper_links">
+                        <div class="paper_author">Yihao Liu, Jingwen He, Xiangyu Chen, Zhengwen Zhang, <b style="color:orange">Hengyuan Zhao</b>, Chao Dong, Yu Qiao</div>                        <div class="paper_links">
                             <span>
                                 <a class="paper_link" href="https://arxiv.org/pdf/2104.06279.pdf">Paper(arxiv)</a>
                             </span>
@@ -327,13 +423,9 @@
                             <span>
                                 <a class="paper_link" href="https://github.com/hejingwenhejingwen/CSRNet">Codes</a>
                             </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="">BibTex</a>
-                            </span>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
             </table>
 
         </div>
