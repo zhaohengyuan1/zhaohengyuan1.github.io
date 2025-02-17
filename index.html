@@ -48,7 +48,7 @@
     
     .main {
         padding: 1em;
-        width: 60%;
+        width: 75%;
         height: 100%;
         margin: 0 auto;
         /* background-color: ghostwhite; */
@@ -90,21 +90,24 @@
         border-spacing: 0 1em; 
     }
 
+    /* .pub_tr {
+        margin: 0 0 1em 0;
+    } */
+
+
     .imagetd {
-        border-left: 4px solid #fafafa;
+        /* width: ; */
+        padding: 0 0.5em 0 1em;
+        border-left: 2px solid #fafafa;
+        text-align: center;
     }
 
     .pub_img {
-        /* width: 60%; */
-        width: 260px;
-        height: 150px;
-        /* border: 1px solid #30363d; */
+        width: 300px;
         border-radius: 5px;
-        margin-left: 1em;
     }
     
     .paper_info {
-        padding: 0 0 0 0.5em;
         text-align: left;
         vertical-align: middle;
     }
@@ -124,12 +127,12 @@
     
     .paper_pub {
         font-size: 16px;
-        margin: 0 0 0.2em 0.5em;
+        margin: 0 0 0.5em 0.5em;
     }
 
     .paper_decription {
         font-size: 16px;
-        margin: 0.2em 0 0.2em 0.5em;
+        margin: 0.2em 0 0.5em 0.5em;
         /* color: rgb(170,170,170); */
         color: #fafafa;
     }
@@ -147,7 +150,7 @@
             
             <img src="me.jpg" width="200px">
             <div class="biocontent">
-                Hi👋, this is Henry. I'm a third-year PhD student at <a href="https://sites.google.com/view/showlab">Show Lab</a>, National University of Singapore, under the supervision of Prof. <a href="https://sites.google.com/view/showlab/home?authuser=0">Mike Zheng Shou</a>. In the past time, I've been fortunate to work with <a href="https://panzhous.github.io/">Pan Zhou</a>. 
+                Hi👋, this is Henry. I'm a final-year PhD student at <a href="https://sites.google.com/view/showlab">Show Lab</a>, National University of Singapore, under the supervision of Prof. <a href="https://sites.google.com/view/showlab/home?authuser=0">Mike Zheng Shou</a>. In the past time, I've been fortunate to work with <a href="https://panzhous.github.io/">Pan Zhou</a>. 
             </div>
 
             <div class="biocontent">
@@ -178,7 +181,7 @@
             </div>
 
             <div class="biocontent">
-                I am open to discussion and collaboration. Feel free to reach out. 
+                <p style="color:antiquewhite">I am seeking research collaboration opportunities, please email me if you are interested.</p>
             </div>
 
             <!-- <h2 class="h2_title">Research Brief</h2>
@@ -280,12 +283,59 @@
             <table>
 
                 <tr class="pub_tr">
-                    <td class="imagetd" style="text-align: center;"><img src="./publication_imgs/lova3_neurips2024.png" alt="" width="260px" style="border-radius: 5px; margin-left: 1em;"></td>
+                    <td class="imagetd"><img src="./publication_imgs/InterFeedback.jpg" alt="" class="pub_img" style="width: 220px;"></td>
+                    <td class="paper_info">
+                        <div class="paper_title">InterFeedback: Unveiling Interactive Intelligence of Large Multimodal
+                            Models with Human Feedback</div>
+                        <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao*</b>, Wenqi Pei*, Yifei Tao*, Haiyang Mei, Mike Zheng Shou</div>
+                        <div class="paper_pub"> <i>Arxiv Preprint (Feburary). </i> *Equal contribution.</div>
+                        <div class="paper_decription" style="color:aqua;">Can Large Multimodal Models evolve through Interactive Human Feedback</div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="">Paper</a>
+                            </span>
+                            <!-- <span>|</span> -->
+                            <!-- <span>
+                                <a class="paper_link" href="">Codes</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="">Project Pages</a>
+                            </span> -->
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="pub_tr">
+                    <td class="imagetd"><img src="./publication_imgs/WorldGUI.jpg" alt="" class="pub_img"></td>
+                    <td class="paper_info">
+                        <div class="paper_title">WorldGUI: Dynamic Testing for Comprehensive Desktop GUI Automation</div>
+                        <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Difei Gao, Mike Zheng Shou</div>
+                        <div class="paper_pub"> <i>Arxiv Preprint (Feburary). </i></div>
+                        <div class="paper_decription" style="color:aqua;">Benchmark: An early work for testing GUI agents in a dynamic setting. <br>Agent: An effective and foundament agent framwork for GUI automation building uppn critic-thinking philosophy.</div>
+                        <div class="paper_links">
+                            <span>
+                                <a class="paper_link" href="https://arxiv.org/abs/2502.08047">Paper</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://github.com/showlab/WorldGUI">Codes</a>
+                            </span>
+                            <span>|</span>
+                            <span>
+                                <a class="paper_link" href="https://showlab.github.io/WorldGUI">Project Pages</a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="pub_tr">
+                    <td class="imagetd"><img src="./publication_imgs/lova3_neurips2024.png" alt="" class="pub_img"></td>
                     <td class="paper_info">
                         <div class="paper_title">LOVA3: Learning to Visual Question Answering, Asking and Assessment</div>
                         <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pan Zhou, Difei Gao, Zechen Bai, Mike Zheng Shou</div>
                         <div class="paper_pub"> <i>Neural Information Processing Systems <span style="color: orange;">(NeurIPS 2024)</span></i></div>
-                        <div class="paper_decription">🌺 Only VQA? Let's think about GenQA and EvalQA when training MLLMs? We human not only can answering question, but also ask questions and assess the answers provided by ourself.</div>
+                        <div class="paper_decription" style="color:aqua;">🌺 Only VQA? Let's think about GenQA and EvalQA when training MLLMs? We human not only can answering question, but also ask questions and assess the answers provided by ourself.</div>
                         <div class="paper_links">
                             <span>
                                 <a class="paper_link" href="https://arxiv.org/pdf/2405.14974">Paper</a>
@@ -300,12 +350,12 @@
                 </tr>
 
                 <tr class="pub_tr">
-                    <td class="imagetd" style="text-align: center;"><img src="./publication_imgs/eccv2024_poster.png" alt="" width="260px" style="border-radius: 5px; margin-left: 1em;"></td>
+                    <td class="imagetd"><img src="./publication_imgs/eccv2024_poster.png" alt="" class="pub_img"></td>
                     <td class="paper_info">
                         <div class="paper_title">Genixer: Empowering Multimodal Large Language Models as a Powerful Data Generator</div>
                         <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pan Zhou, Mike Zheng Shou</div>
                         <div class="paper_pub"> <i>European Conference on Computer Vision <span style="color: orange;">(ECCV 2024)</span></i></div>
-                        <div class="paper_decription">💡 How MLLMs perform in data generation? (We are the first work.) We developed two data generators for nine vision-language (VL) tasks.</div>
+                        <div class="paper_decription" style="color:aqua;">💡 How MLLMs perform in data generation? (We are the first work.) We developed two data generators for nine vision-language (VL) tasks.</div>
                         <div class="paper_links">
                             <span>
                                 <a class="paper_link" href="https://arxiv.org/pdf/2312.06731">Paper</a>
@@ -320,12 +370,12 @@
                 </tr>
                 
                 <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/sct_ijcv2023.png" alt="" width="260px" style="border-radius: 5px; margin-left: 1em;"></td>
+                    <td class="imagetd"><img src="./publication_imgs/sct_ijcv2023.png" alt="" class="pub_img"></td>
                     <td class="paper_info">
                         <div class="paper_title">SCT: A Simple Baseline for Parameter-Efficient Fine-Tuning via Salient Channels</div>
                         <div class="paper_author"><b style="color:orange">Henry Hengyuan Zhao</b>, Pichao Wang, Yuyang Zhao, Hao Luo, Fan Wang, Mike Zheng Shou</div>
                         <div class="paper_pub"> <i>International Journal of Computer Vision <span style="color: orange;">(IJCV 2023)</span></i></div>
-                        <div class="paper_decription">We found that tuning only a small number of task-specific channels, referred to as salient channels, is sufficient. This work represents a remarkable reduction of 780x in parameter costs compared to its full fine-tuning counterpart.</div>
+                        <div class="paper_decription" style="color:aqua;">We found that tuning only a small number of task-specific channels, referred to as salient channels, is sufficient. This work represents a remarkable reduction of 780x in parameter costs compared to its full fine-tuning counterpart.</div>
                         <div class="paper_links">
                             <span>
                                 <a class="paper_link" href="https://arxiv.org/pdf/2309.08513">Paper</a>
@@ -339,7 +389,7 @@
                 </tr>
                 
                 <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/srga_tpami2023.jpg" alt="" width="260px" style="border-radius: 5px; margin-left: 1em;"></td>
+                    <td class="imagetd"><img src="./publication_imgs/srga_tpami2023.jpg" alt="" class="pub_img"></td>
                     <td class="paper_info">
                         <div class="paper_title">Evaluating the Generalization Ability of Super-Resolution Networks</div>
                         <div class="paper_author">Yihao Liu, <b style="color:orange">Hengyuan Zhao</b>, Jinjin Gu, Yu Qiao, Chao Dong</div>
