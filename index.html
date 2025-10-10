@@ -1,500 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Henry Hengyuan Zhao</title>
-</head>
-
-<link rel="Shortcut Icon" href="./bird_logo.png" type="image/x-icon">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
-<style>
-    * {
-        /* font-family: Arial, Helvetica, sans-serif; */
-        /* font-family: Helvetica, sans-serif; */
-        font-family: 'Segoe UI', sans-serif;
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Henry Hengyuan Zhao</title>
+  <meta name="description" content="Henry Hengyuan Zhao — PhD at NUS Show Lab. Multimodal AI & Agents: GUI automation, chart-to-code, interactive alignment. Open to industry Research Scientist roles in May 2026." />
+  <link rel="icon" href="./bird_logo.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    * { font-family: 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+    :root{
+      --bg:#010409; --fg:#c9d1d9; --muted:#8b949e; --link:#1C86EE; --card:#0d1117;
+      --border:#30363d; --accent:#b64ff3; --success:#73D9C6; --title:#D3D4D6; --paper-title:#84A4E8;
     }
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #010409;
-        color: #c9d1d9;
-    }
-    
-    h2 {
-        /* margin: 0; */
-        padding: 0;
-    }
-    
-    .myname {
-        padding: 0 0 0 0;
-        margin: 0.5em 0 0.5em 0;
-    }
-    
-    a {
-        text-decoration: none;
-        color: #1C86EE;
-    }
-    
-    a:hover {
-        /* color: orange; */
-        text-decoration: underline;
-    }
-    
+    body { margin:0; background:var(--bg); color:var(--fg); }
+    a { color:var(--link); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page { display:block; }
     .main {
-        padding: 1em;
-        width: 60%;
-        height: 100%;
-        margin: 0 auto;
-        /* background-color: ghostwhite; */
-        /* border-color: #c9d1c9; */
-        font-size: 18px;
-        /* font-family: "Open Sans", "Helvetica Neue", Helvetica; */
+      padding: 1.25rem;
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      font-size: 18px;
     }
-    
-    .icons {
-        font-size: 22px;
-    }
-    
-    .biocontent {
-        /* padding: 0 0 0 0.6em; */
-        text-align: justify;
-        margin: 0.5em 0 1em 0;
-        font-size: 20px;
-    }
-    
-    .self_link {
-        /* padding: 0 0 0 0.6em; */
-        margin: 0 0 1em 0;
-        /* border: 1px solid rgba(240, 246, 252, 0.4); */
-        /* border-radius: 6px; */
-    }
-    
-    .h2_title {
-        padding: 0 0 0.2em 0;
-        /* border: 1px solid #30363d;
-        border-radius: 6px; */
-        border-bottom: 2px solid #30363d;
-    }
-    
-    .news_list {
-        padding: 0 0 0 1.3em;
-    }
-    
-    table {
-        border-spacing: 0 1em; 
+    h1, h2 { margin: .6rem 0 .4rem; }
+    h1#name { font-size: 1.5rem; margin-top:.2rem; }
+
+    /* 让左列随图片自动变宽，避免图片溢出覆盖文字 */
+    .top{
+    display: grid;
+    grid-template-columns: auto 1fr;   /* 关键：左列=图片实际宽度 */
+    gap: 1.2rem;
+    align-items: start;
     }
 
-    .paperCat {
-        padding: 0;
-        margin: 0;
-        font-size: 22px;
-        font-weight: 700;
-        color: #D3D4D6;
-        /* color: black */
+    /* 头像：更大但不溢出 */
+    .portrait img{
+    display: block;
+    width: clamp(220px, 26vw, 300px);  /* 最小220，常用≈26vw，最大300 */
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    max-width: 100%;
     }
 
-    .imagetd {
-        /* width: ; */
-        padding: 0 1em 0 0.5em;
-        border-left: 2px solid #fafafa;
-        text-align: center;
+    /* 移动端收窄一些 */
+    @media (max-width: 760px){
+    .top{ grid-template-columns: 1fr; }     /* 堆叠 */
+    .portrait img{ width: 200px; }
     }
 
-    .pub_img {
-        width: 260px;
-        /* border-radius: 2px; */
-    }
-    
-    .paper_info {
-        text-align: left;
-        vertical-align: middle;
+    /* 右侧介绍区整体缩小字号（只影响顶部介绍，不动论文列表） */
+    .intro .biocontent{ 
+    font-size: 16px;          /* 原来是 20px -> 小一号 */
+    line-height: 1.55;
     }
 
-    .paper_title {
-        font-size: 20px;
-        /* color: #1C86EE; */
-        /* color: #fafafa; */
-        /* color: #F9F5E3; */
-        color: #84A4E8;
-        margin: 0 0 0.5em 0;
-        font-weight: bold;
+    /* 一级标题也稍微小一点，更协调 */
+    #name{ font-size: 1.9rem; }
+
+    .biocontent{ margin:.5rem 0 1rem; font-size:20px; line-height:1.6; text-align:justify; }
+    .badge {
+      display:inline-block; padding:.18rem .6rem; border-radius:999px; border:1px solid #4b1f66;
+      color:var(--accent); background:#1a1a1a; font-size:.9rem; margin-right:.5rem;
+    }
+        /* 替换/追加 */
+    .cta{ gap: .35rem; }                 /* 按钮之间更紧 */
+    .btn{
+    padding: .30rem .56rem;            /* 由 ~0.42rem 缩小 */
+    font-size: 1rem;                 /* 字体略小 */
+    border-radius: 8px;                /* 稍微更紧凑的圆角 */
+    border: 1px solid #3a3a3a;
+    background:#111318;
+    color:#ddd;
+    }
+    .btn.primary{                         /* 主按钮也一起变紧凑 */
+    background: var(--accent);
+    color: #0b0b0b;
+    border-color: var(--accent);
+    }
+    .icons{ font-size: 16px; }            /* 图标小一号 */
+    .badge{                               
+        font-size: .85rem;                  /* Hiring 徽章也小一点 */
+        padding: .14rem .5rem;
     }
 
-    .paper_author {
-        font-size: 18px;
-        margin: 0 0 0.5em 0;
-    }
-
-    .namecolor{
-        /* color: orange; */
-        color: #F9957C;
-    }
-    
-    .paper_pub {
-        font-size: 18px;
-        margin: 0 0 0.5em 0;
-        /* color: #F9957C; */
-        color: #73D9C6;
-        font-weight: 800;
-    }
-
-    .paper_decription {
-        font-size: 18px;
-        margin: 0 0 0.5em 0;
-        color: #C8C0D1;
-        /* color: aqua; */
-    }
-    
-    .paper_links {
-        margin: 0 0 0.5em 0;
-    }
-</style>
-
-
+    .h2_title { padding-bottom:.25rem; border-bottom:2px solid var(--border); }
+    .news_list { padding-left:1.2em; }
+    .paperCat { margin:0; font-size:22px; font-weight:700; color:var(--title); }
+    table { border-spacing:0 1em; width:100%; }
+    .imagetd { padding:0 1em 0 .5em; border-left:2px solid #fafafa0f; text-align:center; }
+    .pub_img { width:260px; }
+    .paper_info { text-align:left; vertical-align:middle; }
+    .paper_title { font-size:20px; color:var(--paper-title); margin:0 0 .5em; font-weight:700; }
+    .paper_author { font-size:18px; margin:0 0 .5em; }
+    .namecolor { color:#F9957C; }
+    .paper_pub { font-size:18px; margin:0 0 .5em; color:var(--success); font-weight:800; }
+    .paper_decription { font-size:18px; margin:0 0 .5em; color:#C8C0D1; }
+    .paper_links { margin:0 0 .5em; }
+    .self_link { margin:.6rem 0 1.2rem; }
+  </style>
+</head>
 <body>
-    <div class="page">
-        <div class="main">
-            <h2 class="myname">Henry Hengyuan Zhao</h2>
-            
-            <img src="me.jpg" width="200px">
-            
-            <div class="biocontent">
-                Hi👋, this is Henry. I'm a PhD student in the <a href="https://sites.google.com/view/showlab">Show Lab</a> at National University of Singapore, advised by Prof. <a href="https://sites.google.com/view/showlab/home?authuser=0">Mike Zheng Shou</a>. 
-            </div>
-
-            <div class="biocontent">
-                I am working on creating multimodal AI assistants that understand and collaborate with humans to solve real-world problems, 
-                with a broader interest in exploring the emerging roles of contemporary AI models in supporting human-AI and agent-computer interaction.
-            </div>
-
-            <div class="biocontent">
-                <b>Research projects:</b> I have been developing AI agent capable of interacting with computers 
-                (<a href="https://arxiv.org/abs/2502.08047">WorldGUI</a>), training large multimodal models (<a href="https://arxiv.org/abs/2312.06731">Genixer</a>, <a href="https://arxiv.org/abs/2405.14974">LOVA3</a>) to uncover their potential roles for enhanced intelligence,
-                and exploring their interactive intelligence for improved alignment (<a href="https://arxiv.org/abs/2502.15027">InterFeedback</a>).
-            </div>
-            
-            <div class="biocontent">
-                <span style="color: Crimson">I am currently on the industry job market, seeking research scientist positions starting in May 2026. Here is my <a href="files/Henry_Hengyuan_Zhao_CV.pdf">CV</a>.</span>
-            </div>
-            
-            <div class="self_link">
-                <span>Links: </span>
-                <span>
-                    <a href="mailto:zhaohengyuan99@gmail.com"><i class="fa fa-envelope icons"></i> Email</a>
-                </span>
-                <span>/</span>
-                <span>
-                    <a href="https://github.com/zhaohengyuan1"><i class="fa-brands fa-github"></i> GitHub</a>
-                </span>
-                <span>/</span>
-                <span>       
-                    <a href="https://scholar.google.com/citations?user=QLSk-6IAAAAJ&hl=zh-CN"><i class="ai ai-google-scholar icons"></i> Google Scholar</a>
-                </span>
-                <span>/</span>
-                <span>
-                    <a href="https://twitter.com/ZHHHYuan"><i class="fa-brands fa-x-twitter"></i> @ZHHHYuan</a>
-                </span>
-                <!-- <span>/</span> -->
-                <!-- <span>
-                    <a href="./files/Henry_Hengyuan_Zhao_CV.pdf"><i class="fa-solid fa-file"></i> CV</a>
-                </span> -->
-            </div>
-    
-
-            <h2 class="h2_title">📢 News</h2>
-
-            <ul class="news_list">
-                <li>
-                    <span>[08/2025] <a href="https://arxiv.org/abs/2502.15027v1">InterFeedBack</a> is accepted by EMNLP 2025 Findings.</span>
-                </li>
-                <li>
-                    <span>[03/2025] <a href="https://arxiv.org/abs/2502.15027v1">InterFeedBack</a> is accepted by ICLR 2025 Bidirectional Human-AI Alignment Workshop.</span>
-                </li>
-                <li>
-                    <span>[02/2025] We released <a href="https://arxiv.org/abs/2502.15027v1">InterFeedBack</a> to explore the question "Can Large Multimodal Models evolve through Interactive Human Feedback?" Check it out!</span>
-                </li>
-                <li>
-                    <span>[02/2025] Check our new preprint about <a href="https://arxiv.org/abs/2502.08047">WorldGUI: Dynamic Testing for Comprehensive Desktop GUI Automation</a></span>
-                </li>
-                <li>
-                    <span>[12/2024] I will present our NeurIPS paper <a href="https://arxiv.org/abs/2405.14974">LOVA3</a> at Vancouver.</span>
-                </li>
-                <li>
-                    <span>[10/2024] I will present our ECCV paper <a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/03355.pdf">Genixer</a> at Milano.</span>
-                </li>
-                <li>
-                    <span>
-                        [09/2024] One paper is accpeted by NeurIPS 2024.
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        [07/2024] One paper is accpeted by ECCV 2024.
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        [09/2023] One paper is accpeted by IJCV 2023.
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        [08/2023] One paper is accpeted by TPAMI 2023.
-                    </span>
-                </li>
-            </ul>
-
-            <h2 class="h2_title">🌺 Research Papers</h2>
-
-            <table>
-                <tr>
-                    <td class="paperCat" colspan="2">Human-AI Interaction: </td>
-                </tr>
-                
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/InterFeedback.jpg" alt="" class="pub_img" style="width: 200px;"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">InterFeedback: Unveiling Interactive Intelligence of Large Multimodal
-                            Models via Human Feedback</div>
-                        <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao*</b>, Wenqi Pei*, Yifei Tao*, Haiyang Mei, Mike Zheng Shou *Equal contribution</div> 
-                        <div class="paper_pub">EMNLP 2025 Findings <br>ICLR 2025@Bi-Align Workshop (Oral presentation)</div>
-                        <div class="paper_decription">Can Large Multimodal Models evolve through Interactive Human Feedback? We found that (1) Accuracy may not fully reflect the models's intelligence; (2) LMMs may cater humans; (3) Low-quality feedback can degrade performance more than simply providing binary (0/1) feedback.</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2502.15027">Paper</a> | <a class="paper_link" href="https://mp.weixin.qq.com/s/rlAEo1KsoheqJR1Z3mtqRA">[新智元]</a> | <a href="https://huggingface.co/datasets/hhenryz/InterFeedBack-Human">Dataset</a> | <a href="https://x.com/_akhaliq/status/1893854697619915119">AK's Retweet</a>
-                            </span>
-                            <!-- <span>|</span> -->
-                            <!-- <span>
-                                <a class="paper_link" href="">Codes</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="">Project Pages</a>
-                            </span> -->
-                        </div>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="paperCat" colspan="2">Human-Agent-Computer Interaction: </td>
-                </tr>
-
-                <tr class="pub_tr">
-                    
-                    <td class="imagetd"><img src="./publication_imgs/WorldGUI.jpg" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">WorldGUI: An Interactive Benchmark for Desktop GUI Automation from Any Starting Point</div>
-                        <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Kaiming Yang, Wendi Yu, Difei Gao, Mike Zheng Shou</div>
-                        <div class="paper_pub">ACL 2025@REALM Workshop</div>
-                        <div class="paper_decription">We introduce the first GUI benchmark designed to assess agents’ dynamic planning and action-event detection capabilities.</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2502.08047">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/showlab/WorldGUI">Codes</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://showlab.github.io/WorldGUI">Project Pages</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="paperCat" colspan="2">The roles of MLLMs: </td>
-                </tr>
-
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/lova3.png" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">LOVA3: Learning to Visual Question Answering, Asking and Assessment</div>
-                        <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pan Zhou, Difei Gao, Zechen Bai, Mike Zheng Shou</div>
-                        <div class="paper_pub">NeurIPS 2024</div>
-                        <div class="paper_decription" >🌺 Only answering questions? Let's think about asking and assessing questions when training MLLMs? Without hyperparameter tuning or additional data annotation, consistent performance improvements are achieved!</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2405.14974">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/showlab/LOVA3">Codes</a>
-                                <!-- <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/showlab/LOVA3"> -->
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/genixer.png" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">Genixer: Empowering Multimodal Large Language Models as a Powerful Data Generator</div>
-                        <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pan Zhou, Mike Zheng Shou</div>
-                        <div class="paper_pub">ECCV 2024</div>
-                        <div class="paper_decription" >💡 How MLLMs perform in data generation? (We are the first work.) Take a look at using MLLMs to generate diverse multimodal data and observe the performance improvements. </div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2312.06731">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/Genixer">Codes</a>
-                                <!-- <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhaohengyuan1/Genixer"> -->
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td class="paperCat" colspan="2">Parameter-Efficient Tuning: </td>
-                </tr>
-
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/sct.jpg" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">SCT: A Simple Baseline for Parameter-Efficient Fine-Tuning via Salient Channels</div>
-                        <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pichao Wang, Yuyang Zhao, Hao Luo, Fan Wang, Mike Zheng Shou</div>
-                        <div class="paper_pub">IJCV 2023</div>
-                        <div class="paper_decription" >We found that tuning only a small number of task-specific channels, referred to as salient channels, is sufficient. This work represents a remarkable reduction of 780x in parameter costs compared to its full fine-tuning counterpart.</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2309.08513">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/SCT">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="paperCat">Low-level Vision: </td>
-                </tr>
-                
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/srga_tpami2023.jpg" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <div class="paper_title">Evaluating the Generalization Ability of Super-Resolution Networks</div>
-                        <div class="paper_author">Yihao Liu, <b class="namecolor">Hengyuan Zhao</b>, Jinjin Gu, Yu Qiao, Chao Dong</div>
-                        <div class="paper_pub">TPAMI 2023</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2205.07019">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/lyh-18/SRGA">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/Color2Style.png" alt="" class="pub_img"></td>
-                    <td class="paper_info" valign="top">
-                        <div class="paper_title">Color2Style: Real-Time Exemplar-Based Image Colorization with Self-Reference Learning and Deep Feature Modulation</div>
-                        <div class="paper_author"><b class="namecolor">Hengyuan Zhao</b>, Wenhao Wu, Yihao Liu, Dongliang He.</div>
-                        <div class="paper_pub">arxiv, 2021</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2106.08017.pdf">arxiv</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/Color2Style">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr> -->
-
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/ClassSR_CVPR2021.png" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <!-- <a href="" class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</a> -->
-                        <div class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</div>
-                        <div class="paper_author">Xiangtao Kong, <b class="namecolor">Hengyuan Zhao</b>, Yu Qiao, Chao Dong</div>
-                        <div class="paper_pub">CVPR 2021</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2103.04039.pdf">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/Xiangtaokong/ClassSR">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/pan_ECCV2020.png" alt="" class="pub_img"></td>
-                    <td class="paper_info">
-                        <!-- <a href="" class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</a> -->
-                        <div class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</div>
-                        <div class="paper_author"><b class="namecolor">Hengyuan Zhao</b>, Xiangtao Kong, Jingwen He, Yu Qiao, Chao Dong</div>
-                        <div class="paper_pub">ECCVW 2020</div>
-                        <div class="paper_decription"> Over 400 citations</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2010.01073.pdf">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/PAN">Codes</a>
-                                <!-- <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhaohengyuan1/PAN"> -->
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-
-                <!-- <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/SDNet_ICCV2019.png" alt="" class="pub_img"></td>
-                    <td class="paper_info" valign="top">
-                        <div class="paper_title">A Simple and Robust Deep Convolutional Approach to Blind Image Denoising</div>
-                        <div class="paper_author"><b class="namecolor">Hengyuan Zhao</b>, Wenze Shao, Bingkun Bao, Haibo Li</div>
-                        <div class="paper_pub"> ICCVW 2019</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://openaccess.thecvf.com/content_ICCVW_2019/papers/LCI/Zhao_A_Simple_and_Robust_Deep_Convolutional_Approach_to_Blind_Image_ICCVW_2019_paper.pdf">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/zhaohengyuan1/SDNet">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr> -->
-
-                <!-- <tr class="pub_tr">
-                    <td class="imagetd"><img src="./publication_imgs/CSRNet_pami.png" alt="" class="pub_img"></td>
-                    <td class="paper_info" valign="top">
-                        <div class="paper_title">Very Lightweight Photo Retouching Network with Conditional Sequential Modulation</div>
-                        <div class="paper_author">Yihao Liu, Jingwen He, Xiangyu Chen, Zhengwen Zhang, <b class="namecolor">Hengyuan Zhao</b>, Chao Dong, Yu Qiao</div>                        
-                        <div class="paper_pub"> TMM 2022</div>
-                        <div class="paper_links">
-                            <span>
-                                <a class="paper_link" href="https://arxiv.org/abs/2104.06279.pdf">Paper</a>
-                            </span>
-                            <span>|</span>
-                            <span>
-                                <a class="paper_link" href="https://github.com/hejingwenhejingwen/CSRNet">Codes</a>
-                            </span>
-                        </div>
-                    </td>
-                </tr> -->
-            </table>
-
+  <div class="page">
+    <main class="main" role="main">
+      <div class="top">
+        <div class="portrait">
+          <img src="me.jpg" alt="Portrait of Henry Hengyuan Zhao" />
         </div>
-    </div>
-</body>
+        <div>
+          <h1 id="name">Henry Hengyuan Zhao</h1>
 
+          <div class="biocontent">
+            Hi 👋, I'm Henry, a PhD student in the
+            <a href="https://sites.google.com/view/showlab" target="_blank" rel="noopener">Show Lab</a>
+            at the National University of Singapore, advised by
+            <a href="https://sites.google.com/view/showlab/home?authuser=0" target="_blank" rel="noopener">Prof. Mike Zheng Shou</a>.
+          </div>
+
+          <div class="biocontent">
+            I train Large Multimodal Models (LMMs) and develop agents/benchmarks for
+            GUI automation and chart-to-code.
+          </div>
+
+          <div class="biocontent">
+            <strong>Selected work:</strong> agent–computer interaction
+            (<a href="https://arxiv.org/abs/2502.08047" target="_blank" rel="noopener">WorldGUI</a>),
+            large multimodal model training
+            (<a href="https://arxiv.org/abs/2312.06731" target="_blank" rel="noopener">Genixer</a>,
+             <a href="https://arxiv.org/abs/2405.14974" target="_blank" rel="noopener">LOVA3</a>),
+            and interactive alignment/evaluation
+            (<a href="https://arxiv.org/abs/2502.15027" target="_blank" rel="noopener">InterFeedback</a>).
+          </div>
+
+          <div class="biocontent">
+            <span style="color: #b64ff3">I am currently on the job market, seeking research scientist positions.</span> <a class="btn primary" href="files/Henry_Hengyuan_Zhao_CV.pdf"><i class="fa-solid fa-file-lines icons"></i> CV</a>
+          </div>
+
+          <div class="biocontent">
+            <!-- <span class="badge" aria-label="Hiring availability">Open to Industry · Research Scientist · May 2026</span> -->
+            <span class="cta" aria-label="Quick actions">
+              
+              <a class="btn" href="mailto:zhaohengyuan99@gmail.com"><i class="fa fa-envelope icons"></i> Email</a>
+              <a class="btn" href="https://github.com/zhaohengyuan1" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              <a class="btn" href="https://scholar.google.com/citations?user=QLSk-6IAAAAJ&hl=zh-CN" target="_blank" rel="noopener"><i class="ai ai-google-scholar icons"></i> Google Scholar</a>
+              <a class="btn" href="https://twitter.com/ZHHHYuan" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i> @ZHHHYuan</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="h2_title">📢 News</h2>
+      <ul class="news_list">
+        <li>[08/2025] <a href="https://arxiv.org/abs/2502.15027v1">InterFeedback</a> accepted to EMNLP 2025 Findings.</li>
+        <li>[03/2025] <a href="https://arxiv.org/abs/2502.15027v1">InterFeedback</a> accepted to ICLR 2025 Bi-Align Workshop (Oral).</li>
+        <li>[02/2025] Released <a href="https://arxiv.org/abs/2502.15027v1">InterFeedback</a>—exploring whether LMMs evolve via interactive human feedback.</li>
+        <li>[02/2025] New preprint: <a href="https://arxiv.org/abs/2502.08047">WorldGUI: Dynamic Testing for Comprehensive Desktop GUI Automation</a>.</li>
+        <li>[12/2024] Presenting <a href="https://arxiv.org/abs/2405.14974">LOVA3</a> at NeurIPS (Vancouver).</li>
+        <li>[10/2024] Presenting <a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/03355.pdf">Genixer</a> at ECCV (Milan).</li>
+        <li>[09/2024] One paper accepted to NeurIPS 2024.</li>
+        <li>[07/2024] One paper accepted to ECCV 2024.</li>
+        <li>[09/2023] One paper accepted to IJCV 2023.</li>
+        <li>[08/2023] One paper accepted to TPAMI 2023.</li>
+      </ul>
+
+      <h2 class="h2_title">🌺 Research Papers</h2>
+
+      <!-- ===== Papers: unchanged structure, minor text fixes ===== -->
+      <table role="table">
+        <tr><td class="paperCat" colspan="2">Multimodal Model Alignment:</td></tr>
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/InterFeedback.jpg" alt="InterFeedback figure" class="pub_img" style="width:200px;"></td>
+          <td class="paper_info">
+            <div class="paper_title">InterFeedback: Unveiling Interactive Intelligence of Large Multimodal Models via Human Feedback</div>
+            <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao*</b>, Wenqi Pei*, Yifei Tao*, Haiyang Mei, Mike Zheng Shou <span class="muted">*Equal contribution</span></div>
+            <div class="paper_pub">EMNLP 2025 Findings <br> ICLR 2025 @ Bi-Align Workshop (Oral)</div>
+            <div class="paper_decription">We study whether LMMs can evolve via interactive human feedback and find: (1) Accuracy may not fully capture intelligence; (2) LMMs may cater to humans; (3) Low-quality feedback can hurt more than simple binary feedback.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2502.15027">Paper</a> |
+              <a href="https://mp.weixin.qq.com/s/rlAEo1KsoheqJR1Z3mtqRA">[新智元]</a> |
+              <a href="https://huggingface.co/datasets/hhenryz/InterFeedBack-Human">Dataset</a> |
+              <a href="https://x.com/_akhaliq/status/1893854697619915119">AK's Retweet</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr><td class="paperCat" colspan="2">Human-Agent-Computer Interaction:</td></tr>
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/WorldGUI.jpg" alt="WorldGUI figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">WorldGUI: An Interactive Benchmark for Desktop GUI Automation from Any Starting Point</div>
+            <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Kaiming Yang, Wendi Yu, Difei Gao, Mike Zheng Shou</div>
+            <div class="paper_pub">ACL 2025 @ REALM Workshop</div>
+            <div class="paper_decription">The first GUI benchmark targeting dynamic planning and action-event detection for desktop automation.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2502.08047">Paper</a> |
+              <a href="https://github.com/showlab/WorldGUI">Codes</a> |
+              <a href="https://showlab.github.io/WorldGUI">Project Page</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr><td class="paperCat" colspan="2">The Roles of MLLMs:</td></tr>
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/lova3.png" alt="LOVA3 figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">LOVA3: Learning to Visual Question Answering, Asking and Assessment</div>
+            <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pan Zhou, Difei Gao, Zechen Bai, Mike Zheng Shou</div>
+            <div class="paper_pub">NeurIPS 2024</div>
+            <div class="paper_decription">Beyond answering: we introduce asking and assessing during training and obtain consistent gains without extra annotation or hyper-parameter tuning.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2405.14974">Paper</a> |
+              <a href="https://github.com/showlab/LOVA3">Codes</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/genixer.png" alt="Genixer figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">Genixer: Empowering Multimodal Large Language Models as a Powerful Data Generator</div>
+            <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pan Zhou, Mike Zheng Shou</div>
+            <div class="paper_pub">ECCV 2024</div>
+            <div class="paper_decription">First to examine MLLMs for data generation—showing diverse data synthesis and measurable downstream gains.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2312.06731">Paper</a> |
+              <a href="https://github.com/zhaohengyuan1/Genixer">Codes</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr><td class="paperCat" colspan="2">Parameter-Efficient Tuning:</td></tr>
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/sct.jpg" alt="SCT figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">SCT: A Simple Baseline for Parameter-Efficient Fine-Tuning via Salient Channels</div>
+            <div class="paper_author"><b class="namecolor">Henry Hengyuan Zhao</b>, Pichao Wang, Yuyang Zhao, Hao Luo, Fan Wang, Mike Zheng Shou</div>
+            <div class="paper_pub">IJCV 2023</div>
+            <div class="paper_decription">Tuning only a small set of salient channels achieves up to 780× parameter reduction vs. full fine-tuning.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2309.08513">Paper</a> |
+              <a href="https://github.com/zhaohengyuan1/SCT">Codes</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr><td class="paperCat">Low-level Vision:</td></tr>
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/srga_tpami2023.jpg" alt="SRGA figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">Evaluating the Generalization Ability of Super-Resolution Networks</div>
+            <div class="paper_author">Yihao Liu, <b class="namecolor">Hengyuan Zhao</b>, Jinjin Gu, Yu Qiao, Chao Dong</div>
+            <div class="paper_pub">TPAMI 2023</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2205.07019">Paper</a> |
+              <a href="https://github.com/lyh-18/SRGA">Codes</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/ClassSR_CVPR2021.png" alt="ClassSR figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">ClassSR: A General Framework to Accelerate Super-Resolution Networks by Data Characteristic</div>
+            <div class="paper_author">Xiangtao Kong, <b class="namecolor">Hengyuan Zhao</b>, Yu Qiao, Chao Dong</div>
+            <div class="paper_pub">CVPR 2021</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2103.04039.pdf">Paper</a> |
+              <a href="https://github.com/Xiangtaokong/ClassSR">Codes</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr class="pub_tr">
+          <td class="imagetd"><img src="./publication_imgs/pan_ECCV2020.png" alt="PAN figure" class="pub_img"></td>
+          <td class="paper_info">
+            <div class="paper_title">Efficient Image Super-Resolution Using Pixel Attention</div>
+            <div class="paper_author"><b class="namecolor">Hengyuan Zhao</b>, Xiangtao Kong, Jingwen He, Yu Qiao, Chao Dong</div>
+            <div class="paper_pub">ECCVW 2020</div>
+            <div class="paper_decription">Over 400 citations.</div>
+            <div class="paper_links">
+              <a href="https://arxiv.org/abs/2010.01073.pdf">Paper</a> |
+              <a href="https://github.com/zhaohengyuan1/PAN">Codes</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </main>
+  </div>
+</body>
 </html>
