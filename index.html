@@ -6,14 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Henry Hengyuan Zhao</title>
   <meta name="description" content="Henry Hengyuan Zhao — PhD at NUS Show Lab. Multimodal AI & Agents: GUI automation, chart-to-code, interactive alignment. Open to industry Research Scientist roles in May 2026." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#010409" />
   <link rel="icon" type="image/png" sizes="512x512" href="./bird_logo.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = window.localStorage.getItem("homepage-color-theme"); } catch (error) {}
+      var systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved === "light" || saved === "dark" ? saved : (systemDark ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#010409" : "#ffffff");
+    }());
+  </script>
   <style>
     * { font-family: 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif; }
-    :root{
+    :root,
+    html[data-theme="dark"]{
       --bg:#010409; --fg:#c9d1d9; --muted:#8b949e; --link:#1C86EE; --card:#0d1117;
       --border:#30363d; --accent:#b64ff3; --success:#73D9C6; --title:#D3D4D6; --paper-title:#84A4E8;
+      --accent-soft:#1a1a1a; --button-bg:#111318; --button-fg:#dddddd; --button-border:#3a3a3a;
+      --description:#C8C0D1; --name:#F9957C; --image-divider:#fafafa0f;
+      --concept:#9acd32; --opportunity:#ee82ee; --accent-contrast:#0b0b0b; --switch-bg:#161b22; --switch-active:#30363d;
+      --switch-shadow:0 1px 4px rgba(0,0,0,.28);
+    }
+    html[data-theme="light"]{
+      --bg:#ffffff; --fg:#292927; --muted:#6a6a66; --link:#175cd3; --card:#f7f7f4;
+      --border:#d9d9d3; --accent:#7a3caf; --success:#087443; --title:#242422; --paper-title:#315f9c;
+      --accent-soft:#f4eef8; --button-bg:#fafaf8; --button-fg:#343431; --button-border:#c9c9c3;
+      --description:#54545d; --name:#b23b31; --image-divider:#e5e5df;
+      --concept:#397300; --opportunity:#842d98; --accent-contrast:#ffffff; --switch-bg:#f1f1ee; --switch-active:#ffffff;
+      --switch-shadow:0 1px 5px rgba(20,20,20,.12);
     }
     body { margin:0; background:var(--bg); color:var(--fg); }
     a { color:var(--link); text-decoration:none; }
@@ -24,6 +51,54 @@
       width: min(1100px, 92vw);
       margin: 0 auto;
       font-size: 18px;
+    }
+    .utility-bar {
+      min-height:36px;
+      margin-bottom:.55rem;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .theme-switch {
+      display:inline-flex;
+      padding:3px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:var(--switch-bg);
+    }
+    .theme-switch button {
+      min-width:76px;
+      padding:5px 11px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      border:0;
+      border-radius:999px;
+      background:transparent;
+      color:var(--muted);
+      font:inherit;
+      font-size:12px;
+      line-height:1.3;
+      cursor:pointer;
+    }
+    .theme-switch button[aria-pressed="true"] {
+      background:var(--switch-active);
+      color:var(--fg);
+      box-shadow:var(--switch-shadow);
+      font-weight:700;
+    }
+    .theme-switch button:focus-visible {
+      outline:2px solid var(--link);
+      outline-offset:2px;
+    }
+    html.theme-ready body,
+    html.theme-ready .btn,
+    html.theme-ready .badge,
+    html.theme-ready .writing-card,
+    html.theme-ready .theme-switch,
+    html.theme-ready .theme-switch button {
+      transition:background-color .18s ease, color .18s ease, border-color .18s ease;
     }
     h1, h2 { margin: .6rem 0 .4rem; }
     h1#name { font-size: 1.5rem; margin-top:.2rem; }
@@ -50,6 +125,8 @@
     @media (max-width: 760px){
     .top{ grid-template-columns: 1fr; }     /* 堆叠 */
     .portrait img{ width: 200px; }
+    .utility-bar{ margin-bottom:.35rem; }
+    .theme-switch button{ min-width:62px; padding:5px 9px; }
     }
 
     /* 右侧介绍区整体缩小字号（只影响顶部介绍，不动论文列表） */
@@ -63,8 +140,8 @@
 
     .biocontent{ margin:.5rem 0 1rem; font-size:20px; line-height:1.6; text-align:justify; }
     .badge {
-      display:inline-block; padding:.18rem .6rem; border-radius:999px; border:1px solid #4b1f66;
-      color:var(--accent); background:#1a1a1a; font-size:.9rem; margin-right:.5rem;
+      display:inline-block; padding:.18rem .6rem; border-radius:999px; border:1px solid var(--accent);
+      color:var(--accent); background:var(--accent-soft); font-size:.9rem; margin-right:.5rem;
     }
         /* 替换/追加 */
     .cta{ gap: .35rem; }                 /* 按钮之间更紧 */
@@ -72,13 +149,13 @@
     padding: .30rem .56rem;            /* 由 ~0.42rem 缩小 */
     font-size: 1rem;                 /* 字体略小 */
     border-radius: 8px;                /* 稍微更紧凑的圆角 */
-    border: 1px solid #3a3a3a;
-    background:#111318;
-    color:#ddd;
+    border: 1px solid var(--button-border);
+    background:var(--button-bg);
+    color:var(--button-fg);
     }
     .btn.primary{                         /* 主按钮也一起变紧凑 */
     background: var(--accent);
-    color: #0b0b0b;
+    color: var(--accent-contrast);
     border-color: var(--accent);
     }
     .icons{ font-size: 16px; }            /* 图标小一号 */
@@ -91,14 +168,14 @@
     .news_list { padding-left:1.2em; }
     .paperCat { margin:0; font-size:22px; font-weight:700; color:var(--title); }
     table { border-spacing:0 1em; width:100%; }
-    .imagetd { padding:0 1em 0 .5em; border-left:2px solid #fafafa0f; text-align:center; }
+    .imagetd { padding:0 1em 0 .5em; border-left:2px solid var(--image-divider); text-align:center; }
     .pub_img { width:260px; }
     .paper_info { text-align:left; vertical-align:middle; }
     .paper_title { font-size:20px; color:var(--paper-title); margin:0 0 .5em; font-weight:700; }
     .paper_author { font-size:18px; margin:0 0 .5em; }
-    .namecolor { color:#F9957C; }
+    .namecolor { color:var(--name); }
     .paper_pub { font-size:18px; margin:0 0 .5em; color:var(--success); font-weight:800; }
-    .paper_decription { font-size:18px; margin:0 0 .5em; color:#C8C0D1; }
+    .paper_decription { font-size:18px; margin:0 0 .5em; color:var(--description); }
     .paper_links { margin:0 0 .5em; }
     .self_link { margin:.6rem 0 1.2rem; }
 
@@ -120,11 +197,29 @@
     }
     .writing-card .paper_title a { color:inherit; }
     .writing-card .paper_decription { line-height:1.55; }
+    .concept-highlight { color:var(--concept); }
+    .opportunity-highlight { color:var(--opportunity); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.theme-ready body,
+      html.theme-ready .btn,
+      html.theme-ready .badge,
+      html.theme-ready .writing-card,
+      html.theme-ready .theme-switch,
+      html.theme-ready .theme-switch button { transition:none; }
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <main class="main" role="main">
+      <div class="utility-bar">
+        <div class="theme-switch" role="group" aria-label="Color theme">
+          <button type="button" data-set-theme="light" aria-pressed="false" title="Use light theme"><span aria-hidden="true">☀</span> Light</button>
+          <button type="button" data-set-theme="dark" aria-pressed="false" title="Use dark theme"><span aria-hidden="true">☾</span> Dark</button>
+        </div>
+      </div>
+
       <div class="top">
         <div class="portrait">
           <img src="me.jpg" alt="Portrait of Henry Hengyuan Zhao" />
@@ -140,7 +235,7 @@
           </div>
 
           <div class="biocontent">
-            I work on multimodal post-training and AI agents, with strong experience in <span style="color: yellowgreen;">identifying</span> and <span style="color: yellowgreen;">defining</span> new settings. <span style="color: violet;">I am actively seeking industry internship opportunities.</span>
+            I work on multimodal post-training and AI agents, with strong experience in <span class="concept-highlight">identifying</span> and <span class="concept-highlight">defining</span> new settings. <span class="opportunity-highlight">I am actively seeking industry internship opportunities.</span>
           </div>
 
           <div class="biocontent">
@@ -421,5 +516,51 @@
       </table>
     </main>
   </div>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-set-theme]"));
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      var systemTheme = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+      function getSavedTheme() {
+        try { return window.localStorage.getItem("homepage-color-theme"); } catch (error) { return null; }
+      }
+
+      function setTheme(theme, persist) {
+        if (theme !== "light" && theme !== "dark") theme = "dark";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        if (themeColor) themeColor.setAttribute("content", theme === "dark" ? "#010409" : "#ffffff");
+
+        buttons.forEach(function (button) {
+          button.setAttribute("aria-pressed", String(button.dataset.setTheme === theme));
+        });
+
+        if (persist) {
+          try { window.localStorage.setItem("homepage-color-theme", theme); } catch (error) {}
+        }
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setTheme(button.dataset.setTheme, true);
+        });
+      });
+
+      if (systemTheme) {
+        var followSystemTheme = function (event) {
+          if (getSavedTheme() !== "light" && getSavedTheme() !== "dark") {
+            setTheme(event.matches ? "dark" : "light", false);
+          }
+        };
+        if (systemTheme.addEventListener) systemTheme.addEventListener("change", followSystemTheme);
+        else if (systemTheme.addListener) systemTheme.addListener(followSystemTheme);
+      }
+
+      setTheme(root.dataset.theme || "dark", false);
+      window.requestAnimationFrame(function () { root.classList.add("theme-ready"); });
+    }());
+  </script>
 </body>
 </html>
