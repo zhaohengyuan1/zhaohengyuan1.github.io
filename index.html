@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Henry Hengyuan Zhao</title>
   <meta name="description" content="Henry Hengyuan Zhao — PhD at NUS Show Lab. Multimodal AI & Agents: GUI automation, chart-to-code, interactive alignment. Open to industry Research Scientist roles in May 2026." />
-  <link rel="icon" href="./bird_logo.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="./bird_logo.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
@@ -101,6 +101,25 @@
     .paper_decription { font-size:18px; margin:0 0 .5em; color:#C8C0D1; }
     .paper_links { margin:0 0 .5em; }
     .self_link { margin:.6rem 0 1.2rem; }
+
+    .writing-card {
+      margin:1rem 0 2rem;
+      padding:1.25rem 1.4rem;
+      border:1px solid var(--border);
+      border-left:3px solid var(--paper-title);
+      border-radius:12px;
+      background:var(--card);
+    }
+    .writing-meta {
+      margin:0 0 .45rem;
+      color:var(--success);
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .writing-card .paper_title a { color:inherit; }
+    .writing-card .paper_decription { line-height:1.55; }
   </style>
 </head>
 <body>
@@ -203,12 +222,32 @@
                 </li>
       </ul>
 
+      <h2 class="h2_title">✍️ Writing</h2>
+      <article class="writing-card">
+        <div class="paper_info">
+          <p class="writing-meta">Research note · Jul 2026 · 中文 / English</p>
+          <h3 class="paper_title">
+            <a href="./blog/silent-evidence-shift.html">
+              Silent Evidence Shift: When Language Models Hide the Boundary Between Knowledge and Context
+            </a>
+          </h3>
+          <p class="paper_decription">
+            A correct answer can still be an evidence failure. We ask whether language models disclose
+            when their answer goes beyond what the supplied context actually supports.
+          </p>
+          <p class="paper_links">
+            <a href="./blog/silent-evidence-shift.html?lang=en">English</a> |
+            <a href="./blog/silent-evidence-shift.html?lang=zh">中文</a>
+          </p>
+        </div>
+      </article>
+
       <h2 class="h2_title">🌺 Selected Papers</h2>
 
       <!-- ===== Papers: unchanged structure, minor text fixes ===== -->
       <table role="table">
         <tr>
-            <td class="paperCat" colspan="2">Multimodal Benchmarking: </td>
+            <td class="paperCat" colspan="2">Video Temporal Reasoning: </td>
         </tr>
         <tr class="pub_tr">
             <td class="imagetd"><img src="./publication_imgs/tempcloze-thumb.jpg" alt="" class="pub_img"></td>
@@ -226,7 +265,7 @@
         </tr>
 
         <tr>
-            <td class="paperCat" colspan="2">Multimodal Reward Model: </td>
+            <td class="paperCat" colspan="2">Process Reward Model: </td>
         </tr>
         <tr class="pub_tr">
             <td class="imagetd"><img src="./publication_imgs/sciprm-thumb.jpg" alt="" class="pub_img"></td>
@@ -244,7 +283,7 @@
         </tr>
                 
                 <tr>
-                    <td class="paperCat" colspan="2">Vision-Centric Coding Benchmark: </td>
+                    <td class="paperCat" colspan="2">Visual Chart Coding: </td>
                 </tr>
 
                 <tr class="pub_tr">
@@ -262,7 +301,7 @@
                     </td>
                 </tr>
 
-        <tr><td class="paperCat" colspan="2">Model Faithfulness:</td></tr>
+        <tr><td class="paperCat" colspan="2">Human-AI Interaction:</td></tr>
         <tr class="pub_tr">
           <td class="imagetd"><img src="./publication_imgs/InterFeedback.jpg" alt="InterFeedback figure" class="pub_img" style="width:200px;"></td>
           <td class="paper_info">
@@ -295,7 +334,7 @@
           </td>
         </tr>
 
-        <tr><td class="paperCat" colspan="2">The Roles of MLLMs:</td></tr>
+        <tr><td class="paperCat" colspan="2">Post-Training of MLLMs:</td></tr>
         <tr class="pub_tr">
           <td class="imagetd"><img src="./publication_imgs/lova3.png" alt="LOVA3 figure" class="pub_img"></td>
           <td class="paper_info">
