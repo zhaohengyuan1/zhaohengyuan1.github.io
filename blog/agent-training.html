@@ -1,0 +1,1287 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Training：从一个目标到一个可靠的 Agent</title>
+  <meta name="description" content="用一个修 bug 的例子，讲清 Agent Training 的 13 个阶段：做什么、为什么重要，以及每一步的产物。" />
+  <meta name="author" content="Henry Hengyuan Zhao" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../bird_logo.png" />
+  <link rel="canonical" href="https://zhaohengyuan1.github.io/blog/agent-training.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://zhaohengyuan1.github.io/blog/agent-training.html?lang=zh" />
+  <link rel="alternate" hreflang="en" href="https://zhaohengyuan1.github.io/blog/agent-training.html?lang=en" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Agent Training: From a Goal to a Reliable Agent" />
+  <meta property="og:description" content="A short guide to the 13 stages of agent training: what each stage does, why it matters, and what it produces." />
+  <meta property="og:url" content="https://zhaohengyuan1.github.io/blog/agent-training.html" />
+  <meta property="og:image" content="https://zhaohengyuan1.github.io/bird_logo.png" />
+  <meta property="article:published_time" content="2026-09-15" />
+
+  <meta name="citation_title" content="Agent Training: From a Goal to a Reliable Agent" />
+  <meta name="citation_author" content="Henry Hengyuan Zhao" />
+  <meta name="citation_publication_date" content="2026/09/15" />
+  <meta name="citation_public_url" content="https://zhaohengyuan1.github.io/blog/agent-training.html" />
+
+  <script>
+    (function () {
+      var requested = new URLSearchParams(window.location.search).get("lang");
+      var saved = null;
+      try { saved = window.localStorage.getItem("agent-training-blog-language"); } catch (error) {}
+      var language = requested === "en" || requested === "zh" ? requested : (saved === "en" ? "en" : "zh");
+      document.documentElement.dataset.lang = language;
+      document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+    }());
+  </script>
+
+  <style>
+    :root {
+      --paper: #ffffff;
+      --ink: #171717;
+      --muted: #666662;
+      --faint: #f5f5f2;
+      --line: #d9d9d3;
+      --accent: #175cd3;
+      --accent-soft: #eef4ff;
+      --signal: #d92d20;
+      --signal-soft: #fff3f0;
+      --good: #087443;
+      --good-soft: #ecf8f1;
+      --page: 1180px;
+      --measure: 760px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+        Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.78;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: #999994;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+
+    a:hover { color: var(--accent); }
+
+    .lang-panel { display: none; }
+    html[data-lang="zh"] .lang-zh { display: block; }
+    html[data-lang="en"] .lang-en { display: block; }
+
+    .site-header {
+      width: min(var(--page), calc(100% - 48px));
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .identity {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+    }
+
+    .identity-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+    }
+
+    .header-actions > a { text-decoration: none; }
+
+    .language-switch {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--faint);
+    }
+
+    .language-switch button {
+      min-width: 52px;
+      padding: 5px 10px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09);
+      font-weight: 700;
+    }
+
+    .hero {
+      width: min(980px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 104px 0 66px;
+    }
+
+    .eyebrow {
+      margin: 0 0 28px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(44px, 6.8vw, 76px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      overflow-wrap: anywhere;
+    }
+
+    .dek {
+      max-width: 830px;
+      margin: 34px 0 0;
+      color: #373737;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(21px, 2.5vw, 28px);
+      line-height: 1.5;
+    }
+
+    .byline {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .byline strong { color: var(--ink); }
+
+    .hero-rule {
+      width: min(var(--page), calc(100% - 48px));
+      margin: 0 auto;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .lead-figure {
+      width: min(1040px, calc(100% - 48px));
+      margin: 72px auto 88px;
+    }
+
+    .lead-figure img,
+    .article-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    figcaption {
+      margin: 15px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .article-layout {
+      width: min(var(--page), calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 205px minmax(0, var(--measure));
+      justify-content: center;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 28px;
+      padding-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .toc-title {
+      margin: 0 0 15px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: toc;
+    }
+
+    .toc li {
+      counter-increment: toc;
+      display: grid;
+      grid-template-columns: 25px 1fr;
+      gap: 5px;
+      margin: 0 0 12px;
+    }
+
+    .toc li::before {
+      content: "0" counter(toc);
+      color: #a3a39e;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .toc a { text-decoration: none; }
+
+    article { min-width: 0; }
+    article p { margin: 0 0 1.45em; }
+
+    article h2 {
+      margin: 3.15em 0 0.78em;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(31px, 4vw, 44px);
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -0.028em;
+      scroll-margin-top: 32px;
+    }
+
+    article h2:first-of-type { margin-top: 2.2em; }
+
+    article h3 {
+      margin: 2.35em 0 0.72em;
+      font-size: 23px;
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+      scroll-margin-top: 32px;
+    }
+
+    article h4 {
+      margin: 2em 0 0.6em;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .reuse-note {
+      margin: 30px 0 0;
+      padding: 13px 16px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: #343c4a;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .reuse-note strong {
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .abstract {
+      margin: 0 0 64px;
+      padding: 28px 30px 30px;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      background: var(--faint);
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: 20px;
+      line-height: 1.68;
+    }
+
+    .abstract strong {
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .argument-map {
+      margin: 0 0 72px;
+    }
+
+    .argument-map-title {
+      margin: 0 0 15px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .argument-map ol {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0;
+      padding: 1px;
+      list-style: none;
+      background: var(--line);
+    }
+
+    .argument-map li {
+      min-height: 142px;
+      padding: 18px;
+      background: var(--paper);
+    }
+
+    .argument-map li span {
+      display: block;
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+    }
+
+    .argument-map li b {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .argument-map li small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .equation {
+      margin: 38px 0 42px;
+      padding: 33px 28px;
+      border-left: 4px solid var(--signal);
+      background: var(--signal-soft);
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .equation .operator {
+      display: inline-block;
+      padding: 0 0.16em;
+      color: var(--signal);
+    }
+
+    .article-figure {
+      margin: 46px 0 48px;
+    }
+
+    .article-figure a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .article-figure a:hover img { border-color: #a8a8a1; }
+
+    .insight,
+    .caveat,
+    .takeaway {
+      margin: 32px 0 40px;
+      padding: 21px 23px;
+      font-size: 15px;
+      line-height: 1.67;
+    }
+
+    .insight {
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .caveat {
+      border-left: 3px solid #a26b00;
+      background: #fff8e6;
+    }
+
+    .takeaway {
+      border-left: 3px solid var(--good);
+      background: var(--good-soft);
+    }
+
+    .insight strong,
+    .caveat strong,
+    .takeaway strong {
+      display: inline-block;
+      margin-right: 0.25em;
+    }
+
+    .scroll-table {
+      margin: 32px 0 42px;
+      overflow-x: auto;
+      border-top: 2px solid var(--ink);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    th, td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    td.numeric, th.numeric {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    tr.highlight td {
+      color: #0f4ca1;
+      background: var(--accent-soft);
+      font-weight: 650;
+    }
+
+    .benchmark-grid,
+    .metric-grid,
+    .policy-grid,
+    .prompt-grid {
+      display: grid;
+      gap: 12px;
+      margin: 32px 0 42px;
+    }
+
+    .benchmark-grid,
+    .policy-grid { grid-template-columns: repeat(3, 1fr); }
+    .metric-grid { grid-template-columns: repeat(2, 1fr); }
+    .prompt-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .benchmark-card,
+    .metric-card,
+    .policy-card,
+    .prompt-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .benchmark-card b,
+    .metric-card b,
+    .policy-card b,
+    .prompt-card b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .benchmark-card span,
+    .metric-card span,
+    .policy-card span,
+    .prompt-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .metric-card code {
+      display: block;
+      margin: 11px 0 8px;
+      color: var(--accent);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: normal;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 33px 0 14px;
+    }
+
+    .stat {
+      min-height: 155px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+    }
+
+    .stat-value {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 5vw, 51px);
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .figure-note {
+      margin: 0 0 36px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .result-number {
+      display: inline-grid;
+      width: 34px;
+      height: 34px;
+      margin-right: 10px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 14px;
+      vertical-align: 3px;
+    }
+
+    .prompt-code {
+      margin: 30px 0 42px;
+      padding: 28px 30px;
+      overflow-x: auto;
+      border: 1px solid #d4d4ce;
+      background: #f7f7f4;
+      color: #252525;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.75;
+      white-space: pre-wrap;
+    }
+
+    .ordered-points {
+      margin: 28px 0 42px;
+      padding: 0;
+      list-style: none;
+      counter-reset: point;
+    }
+
+    .ordered-points li {
+      counter-increment: point;
+      position: relative;
+      margin: 0;
+      padding: 19px 0 19px 48px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ordered-points li::before {
+      content: counter(point);
+      position: absolute;
+      left: 0;
+      top: 19px;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .ordered-points b { display: block; margin-bottom: 3px; }
+
+    .limitations {
+      margin: 30px 0 56px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .limitations li {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+      color: #3e3e3b;
+    }
+
+    .limitations li:last-child { border-bottom: 1px solid var(--line); }
+
+    .closing {
+      margin: 56px 0 90px;
+      font-family: Georgia, "Times New Roman", "Songti SC", serif;
+      font-size: clamp(25px, 3.4vw, 34px);
+      line-height: 1.52;
+    }
+
+    .acknowledgements {
+      margin: 12px 0 62px;
+      padding: 30px 0 0;
+      border-top: 1px solid var(--line);
+      color: #3e3e3b;
+      font-size: 15px;
+    }
+
+    .acknowledgements h2 {
+      margin: 0 0 0.7em;
+      font-size: 28px;
+    }
+
+    .citation-section {
+      margin: 0 0 94px;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+    }
+
+    .citation-section h2 {
+      margin: 0 0 0.45em;
+      font-size: 28px;
+    }
+
+    .citation-intro {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .citation-block {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      background: #fafaf8;
+    }
+
+    .citation-toolbar {
+      min-height: 44px;
+      padding: 0 12px 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .copy-button {
+      flex: 0 0 auto;
+      padding: 6px 11px;
+      border: 1px solid #c8c8c1;
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      cursor: pointer;
+    }
+
+    .copy-button:hover,
+    .copy-button:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+    }
+
+    .citation-code {
+      margin: 0;
+      padding: 18px 20px;
+      overflow-x: auto;
+      color: #2b2b29;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .citation-permalink {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .site-footer {
+      width: min(var(--page), calc(100% - 48px));
+      margin: 110px auto 0;
+      padding: 28px 0 46px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .hero { padding-top: 72px; }
+      .article-layout { grid-template-columns: minmax(0, 1fr); }
+      .toc {
+        position: static;
+        padding: 0 0 31px;
+        border-bottom: 1px solid var(--line);
+      }
+      .toc ol {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 18px;
+      }
+      .toc li { margin: 0; }
+    }
+
+    @media (max-width: 680px) {
+      body { font-size: 17px; }
+
+      .site-header,
+      .hero,
+      .hero-rule,
+      .lead-figure,
+      .article-layout,
+      .site-footer {
+        width: min(var(--page), calc(100% - 30px));
+      }
+
+      .site-header { min-height: 64px; }
+      .identity span:last-child { display: none; }
+      .header-actions { gap: 13px; }
+      .header-actions > a { display: none; }
+      .language-switch button { min-width: 47px; }
+      .hero { padding: 58px 0 46px; }
+      .eyebrow { margin-bottom: 18px; }
+      .dek { margin-top: 25px; }
+      .lead-figure { margin-top: 42px; margin-bottom: 60px; }
+      .reuse-note { padding: 12px 14px; }
+      .abstract { padding: 22px; font-size: 19px; }
+      .toc ol { grid-template-columns: 1fr; }
+      .benchmark-grid,
+      .metric-grid,
+      .policy-grid,
+      .prompt-grid,
+      .stat-grid { grid-template-columns: 1fr; }
+      .argument-map ol { grid-template-columns: 1fr; }
+      .argument-map li { min-height: 0; }
+      .stat { min-height: 126px; }
+      .equation { padding: 26px 19px; }
+      .article-figure { margin: 38px 0 40px; }
+      th, td { padding: 11px 9px; }
+      .citation-code { padding: 15px; font-size: 11px; }
+      .site-footer { flex-direction: column; }
+    }
+
+    @media print {
+      .site-header, .toc, .site-footer { display: none; }
+      .hero, .lead-figure, .article-layout { width: 100%; }
+      .article-layout { display: block; }
+      .lang-panel { display: none !important; }
+      html[data-lang="zh"] .lang-zh,
+      html[data-lang="en"] .lang-en { display: block !important; }
+      body { font-size: 11pt; }
+    }
+
+    .article-layout { margin-top: 72px; }
+    .abstract { margin-bottom: 36px; }
+    .argument-map { margin-bottom: 48px; }
+    .argument-map li { min-height: 130px; }
+    .argument-map a { text-decoration: none; }
+    .argument-map a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .stage-table { min-width: 660px; table-layout: fixed; line-height: 1.65; }
+    .stage-table th:nth-child(1) { width: 24%; }
+    .stage-table th:nth-child(2) { width: 29%; }
+    .stage-table th:nth-child(3) { width: 29%; }
+    .stage-table th:nth-child(4) { width: 18%; }
+    .stage-table tbody th { color: var(--ink); font-size: 14px; letter-spacing: 0; text-transform: none; }
+    .stage-table tbody th small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 400; }
+    .stage-table td:last-child { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .scroll-table:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .reading-note { color: var(--muted); font-size: 13px; }
+    .recipe-list { margin: 0 0 24px; padding-left: 1.2em; }
+    .recipe-list li { margin-bottom: 10px; }
+    .loop { margin: 30px 0; padding: 22px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); font-size: 16px; text-align: center; background: var(--faint); }
+    .reference-list { padding-left: 1.2em; line-height: 1.65; }
+    .reference-list li { margin-bottom: 14px; }
+    @media (max-width: 680px) { .article-layout { margin-top: 42px; } .argument-map li { min-height: 0; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print { .scroll-table { overflow: visible; } .stage-table { min-width: 0; } }
+  </style>
+</head>
+
+<body id="top">
+  <header class="site-header">
+    <a class="identity" href="../index.html">
+      <span class="identity-mark" aria-hidden="true">H</span>
+      <span>Henry Hengyuan Zhao</span>
+    </a>
+    <div class="header-actions">
+      <a href="../index.html">Home</a>
+      <div class="language-switch" role="group" aria-label="Language selector">
+        <button type="button" data-set-language="zh">中文</button>
+        <button type="button" data-set-language="en">EN</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <header class="hero lang-panel lang-zh" data-language-panel="zh">
+      <p class="eyebrow">Training notes · AI agents</p>
+      <h1>Agent Training：<br />从目标到可靠的行动</h1>
+      <p class="dek">用一个修 bug 的例子，走过从能力定义到线上反馈的 13 个阶段。每一步只回答三件事：做什么、为什么重要、留下什么。</p>
+      <div class="byline">
+        <span>作者 <strong>Henry Hengyuan Zhao</strong></span>
+        <span>2026 年 9 月 15 日</span>
+        <span>约 6 分钟</span>
+      </div>
+      <p class="reuse-note"><strong>转载说明：</strong> 欢迎分享与转载；请保留作者署名，注明原文出处，并附上<a href="https://zhaohengyuan1.github.io/blog/agent-training.html">本文链接</a>。</p>
+    </header>
+    <header class="hero lang-panel lang-en" data-language-panel="en">
+      <p class="eyebrow">Training notes · AI agents</p>
+      <h1>Agent Training:<br />From a Goal to a Reliable Agent</h1>
+      <p class="dek">Follow a bug-fixing agent through 13 stages, from defining a capability to learning from production. What happens, why it matters, and what each stage produces.</p>
+      <div class="byline">
+        <span>By <strong>Henry Hengyuan Zhao</strong></span>
+        <span>September 15, 2026</span>
+        <span>6 min read</span>
+      </div>
+      <p class="reuse-note"><strong>Reuse note:</strong> You are welcome to share or republish this post with attribution and a link to the <a href="https://zhaohengyuan1.github.io/blog/agent-training.html">original article</a>.</p>
+    </header>
+    <hr class="hero-rule" />
+    <div class="article-layout">
+      <aside class="toc lang-panel lang-zh" data-language-panel="zh" aria-label="文章目录">
+        <p class="toc-title">目录</p>
+        <ol>
+          <li><a href="#zh-overview">Agent 在学什么</a></li>
+          <li><a href="#zh-prepare">先准备目标、题目与环境</a></li>
+          <li><a href="#zh-signal">把执行变成学习信号</a></li>
+          <li><a href="#zh-learn">训练，再验证是否变好</a></li>
+          <li><a href="#zh-release">整合、发布与下一轮</a></li>
+          <li><a href="#zh-references">参考阅读</a></li>
+          <li><a href="#zh-citation">引用本文</a></li>
+        </ol>
+      </aside>
+      <aside class="toc lang-panel lang-en" data-language-panel="en" aria-label="Table of contents">
+        <p class="toc-title">Contents</p>
+        <ol>
+          <li><a href="#en-overview">What does an agent learn?</a></li>
+          <li><a href="#en-prepare">Define and prepare</a></li>
+          <li><a href="#en-signal">Turn runs into learning signals</a></li>
+          <li><a href="#en-learn">Train and evaluate</a></li>
+          <li><a href="#en-release">Consolidate, release, repeat</a></li>
+          <li><a href="#en-references">Further reading</a></li>
+          <li><a href="#en-citation">Cite this post</a></li>
+        </ol>
+      </aside>
+      <article class="lang-panel lang-zh" data-language-panel="zh">
+        <section id="zh-overview">
+          <div class="abstract"><strong>核心想法</strong><br />Agent training 是一个反复迭代的过程：定义目标，让模型在环境里做事，判断结果，把经验用于训练，再检查它是否真的变好了。</div>
+          <h2>1. Agent 在学什么？</h2>
+          <p>Agent 用模型决定下一步行动：读文件、调用工具、根据结果继续，直到完成任务。这里的 training 指更新这个决策模型的参数，让它更会完成多步任务。工具、提示词和运行框架也需要配合改进。</p>
+          <p>想象我们要训练一个会修 bug 的 agent。它需要读报错、找原因、改代码、运行测试，还要在修错方向时回头。我们关心的是整个任务是否完成。</p>
+          <p class="reading-note">下面是对常见职责的简化拆分。实际团队可能合并阶段、并行推进；其中 rollout、评分和参数更新在 RL 中通常会反复交替。</p>
+          <nav class="argument-map" aria-label="训练流程概览">
+            <p class="argument-map-title">一个循环，四组工作</p>
+            <ol>
+              <li><a href="#zh-prepare"><span>01–04</span><b>确定学什么</b><small>目标、评测、环境、任务</small></a></li>
+              <li><a href="#zh-signal"><span>05–08</span><b>得到学习信号</b><small>执行、评分、分析、数据</small></a></li>
+              <li><a href="#zh-learn"><span>09–10</span><b>学习与验证</b><small>更新模型，检查进步</small></a></li>
+              <li><a href="#zh-release"><span>11–13</span><b>交给真实用户</b><small>整合、发布、收集反馈</small></a></li>
+            </ol>
+          </nav>
+        </section>
+        <section id="zh-prepare">
+          <h2>2. 先准备目标、题目与环境</h2>
+          <p>先说清“会修 bug”是什么意思，再准备测它的尺子和练习的地方。评测集用于衡量进步，训练任务池用于提供练习；两者服务同一个目标，但要隔离数据。</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="阶段 1 到 4：目标、评测、环境与任务">
+<table class="stage-table">
+<thead><tr><th scope="col">阶段</th><th scope="col">做什么</th><th scope="col">为什么重要</th><th scope="col">产物</th></tr></thead>
+<tbody>
+<tr><th scope="row">01. 能力定义<small lang="en">Capability definition</small></th><td>明确要学什么：能定位并修复 bug，且不破坏已有功能。</td><td>目标越具体，后面的题目、评分和训练才越容易对齐。</td><td>能力说明</td></tr>
+<tr><th scope="row">02. 构建评测<small lang="en">Eval construction</small></th><td>把目标变成可测的题目，写清成功标准，先测旧模型。</td><td>有起点和尺子，才能知道训练后到底进步了多少。</td><td>评测集</td></tr>
+<tr><th scope="row">03. 搭建环境<small lang="en">Environment</small></th><td>准备可重置的代码仓库、终端和测试工具，记录初始状态。</td><td>每次从干净环境开始，避免把环境故障或残留文件算成模型表现。</td><td>运行环境</td></tr>
+<tr><th scope="row">04. 生成任务<small lang="en">Task generation</small></th><td>收集真实 bug，补充合成题和边界情况，随能力调整难度与比例。</td><td>模型学到什么取决于练什么；太简单没增益，太难可能缺少有效反馈。</td><td>任务池</td></tr>
+</tbody>
+</table>
+</div>
+          <p class="reading-note">评测先有可用版本，环境和评分逻辑可以共同完善。保留未用于训练的任务；也要避免把几乎相同的题目分别放进训练集和测试集。</p>
+        </section>
+        <section id="zh-signal">
+          <h2>3. 把执行变成学习信号</h2>
+          <p>让模型真正做一遍，才有经验可学。一次修 bug 的轨迹可能是：读报错 → 搜代码 → 修改 → 测试失败 → 再修改 → 测试通过。</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="阶段 5 到 8：执行、评分、失败分析与数据">
+<table class="stage-table">
+<thead><tr><th scope="col">阶段</th><th scope="col">做什么</th><th scope="col">为什么重要</th><th scope="col">产物</th></tr></thead>
+<tbody>
+<tr><th scope="row">05. 执行任务<small lang="en">Rollout</small></th><td>让当前模型实际修 bug，记录观察、动作、工具返回和最终状态。</td><td>完整执行记录（trajectory）让我们看到它在哪一步做对或走偏。</td><td>执行轨迹</td></tr>
+<tr><th scope="row">06. 评分<small lang="en">Grading</small></th><td>用测试或状态检查验证结果；开放问题可用模型评审，并与人工判断校准。</td><td>奖励会引导学习。要防止模型靠删测试、改评分等漏洞拿高分。</td><td>奖励与评分</td></tr>
+<tr><th scope="row">07. 分析失败<small lang="en">Failure analysis</small></th><td>读失败轨迹，区分模型错误、任务歧义、环境故障和评分错误。</td><td>原因不同，修法不同；环境坏了，增加模型训练并不能解决。</td><td>失败分类</td></tr>
+<tr><th scope="row">08. 构建数据<small lang="en">Data construction</small></th><td>整理正确示范、失败后的修正、好坏对比，以及可继续采样的 RL 任务。</td><td>不同问题需要不同学习信号；原始日志需要筛选、去重和质量检查。</td><td>训练数据配方</td></tr>
+</tbody>
+</table>
+</div>
+          <div class="insight"><strong>评分要看真实结果。</strong>“我修好了”只是模型的说法。应检查 bug 是否消失、原有功能是否正常，并把评分依据放在模型无法篡改的地方。见 <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic 的 agent 评测指南</a>。</div>
+        </section>
+        <section id="zh-learn">
+          <h2>4. 训练，再验证是否变好</h2>
+          <p>学习方法决定经验怎样进入模型，常见的三种方式是：</p>
+          <ul class="recipe-list">
+            <li><strong>SFT（监督微调）：</strong>模仿高质量示范，学习正确的行动方式。</li>
+            <li><strong>RL（强化学习）：</strong>反复尝试，用奖励调整行动选择。</li>
+            <li><strong>蒸馏：</strong>用更强模型的输出或轨迹教目标模型，迁移能力。</li>
+          </ul>
+          <p>它们可以组合，具体取决于数据和反馈；不是每轮都必须全部使用。多步执行如何接入 RL，可参考 <a href="https://arxiv.org/abs/2508.03680">Agent Lightning</a>。</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="阶段 9 到 10：训练与评估">
+<table class="stage-table">
+<thead><tr><th scope="col">阶段</th><th scope="col">做什么</th><th scope="col">为什么重要</th><th scope="col">产物</th></tr></thead>
+<tbody>
+<tr><th scope="row">09. 训练<small lang="en">Training</small></th><td>选学习方法，更新模型参数，保存模型版本（checkpoint）。</td><td>把已有示范或反馈转成下一次能用的能力，并检查训练是否稳定。</td><td>模型版本</td></tr>
+<tr><th scope="row">10. 评估<small lang="en">Evaluation</small></th><td>在未参与训练的任务上测新能力、旧能力和安全表现。</td><td>训练奖励涨了不等于真正变好；还要检查泛化与旧能力退化。</td><td>评估报告</td></tr>
+</tbody>
+</table>
+</div>
+          <p>比较新旧模型时，要使用相同的工具、任务和尝试预算，并通过多次运行观察波动。否则，分数提升可能来自多试了几次，或运行框架变了。</p>
+          <p class="reading-note"><strong>Infra 贯穿全程：</strong>环境运行、轨迹采集、评分、模型推理和参数更新要衔接起来。任何一环过慢，都可能让 GPU 等数据；超时与版本记录也会影响训练效率和结果可信度。</p>
+        </section>
+        <section id="zh-release">
+          <h2>5. 整合、发布与下一轮</h2>
+          <p>一个会修 bug 的专项模型，还需要和其他能力一起工作，也需要在实际产品中接受检验。</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="阶段 11 到 13：能力整合、发布检查与线上反馈">
+<table class="stage-table">
+<thead><tr><th scope="col">阶段</th><th scope="col">做什么</th><th scope="col">为什么重要</th><th scope="col">产物</th></tr></thead>
+<tbody>
+<tr><th scope="row">11. 能力整合<small lang="en">Integration</small></th><td>按需要用混合训练、蒸馏等方式，把不同专项能力整合到候选模型。</td><td>分别练好的能力放在一起可能互相影响，整合后还要重新评估。</td><td>候选模型</td></tr>
+<tr><th scope="row">12. 发布检查<small lang="en">Launch gate</small></th><td>连同实际工具和运行框架，检查质量、安全、成本与延迟是否达标。</td><td>模型分数只是系统表现的一部分；用户需要可靠且负担得起的服务。</td><td>发布决定</td></tr>
+<tr><th scope="row">13. 线上反馈<small lang="en">Production</small></th><td>小范围发布或做 A/B 测试，收集用户反馈与实际失败。</td><td>真实使用会暴露任务池没覆盖的问题，为下一轮训练提供方向。</td><td>新失败与任务</td></tr>
+</tbody>
+</table>
+</div>
+          <div class="loop">线上失败 → 定位原因 → 补任务或修环境、评分 → 训练 → 重新评估</div>
+          <p>例如，模型总在测试失败后停下。先确认测试能正常运行、评分没有误判，再加入“失败后继续定位并修正”的练习。训练后用新的同类任务验证，也检查它是否开始无意义地反复重试。</p>
+          <div class="takeaway"><strong>每轮都要重新检查九件事：</strong>目标能力、评测、任务分布、环境、奖励、学习方法、基础设施、能力整合，以及旧能力是否退化。这些决定练什么、怎样学、能否稳定交付。</div>
+        </section>
+        <section id="zh-references" class="citation-section">
+          <h2>参考阅读</h2>
+          <p class="citation-intro">本文是便于理解的流程概括。下面的公开资料分别展开评测、训练系统与研究背景。</p>
+          <ol class="reference-list">
+            <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Demystifying evals for AI agents</a> — 为什么要区分执行轨迹、最终状态与评分，并持续检查回归。</li>
+            <li><a href="https://arxiv.org/abs/2508.03680">Agent Lightning: Train ANY AI Agents with Reinforcement Learning</a> — 如何把 agent 执行记录连接到强化学习系统。</li>
+            <li><a href="https://arxiv.org/abs/2509.02547">The Landscape of Agentic Reinforcement Learning for LLMs: A Survey</a> — <a href="https://arxiv.org/html/2509.02547v1">2025 年综述版本</a>梳理了多步决策中的能力、环境与训练方法。</li>
+          </ol>
+        </section>
+        <section id="zh-citation" class="citation-section">
+          <h2>引用本文</h2>
+          <div class="citation-block">
+            <div class="citation-toolbar">
+              <span>建议引用</span>
+              <button class="copy-button" type="button" data-copy-target="zh-citation-text" data-copy-label="复制引用" data-copied-label="已复制">复制引用</button>
+            </div>
+            <pre id="zh-citation-text" class="citation-code">Zhao, Henry Hengyuan. “Agent Training: From a Goal to a Reliable Agent.” Henry Hengyuan Zhao: Research Blog, September 15, 2026. https://zhaohengyuan1.github.io/blog/agent-training.html.</pre>
+          </div>
+          <div class="citation-block">
+            <div class="citation-toolbar">
+              <span>BibTeX</span>
+              <button class="copy-button" type="button" data-copy-target="zh-bibtex" data-copy-label="复制 BibTeX" data-copied-label="已复制">复制 BibTeX</button>
+            </div>
+            <pre id="zh-bibtex" class="citation-code">@misc{zhao2026agenttraining,
+  author       = {Zhao, Henry Hengyuan},
+  title        = {Agent Training: From a Goal to a Reliable Agent},
+  year         = {2026},
+  month        = sep,
+  howpublished = {Henry Hengyuan Zhao: Research Blog},
+  url          = {https://zhaohengyuan1.github.io/blog/agent-training.html},
+  note         = {Published September 15, 2026}
+}</pre>
+          </div>
+          <p class="citation-permalink">永久链接：<a href="https://zhaohengyuan1.github.io/blog/agent-training.html">zhaohengyuan1.github.io/blog/agent-training.html</a></p>
+        </section>
+      </article>
+      <article class="lang-panel lang-en" data-language-panel="en">
+        <section id="en-overview">
+          <div class="abstract"><strong>The core idea</strong><br />Agent training is an iterative loop: define a goal, let the model act in an environment, judge the outcome, train on the experience, and check whether it improved.</div>
+          <h2>1. What does an agent learn?</h2>
+          <p>An agent uses a model to choose its next action: read a file, call a tool, inspect the result, and continue toward a goal. Here, training means updating that decision model’s parameters to improve multi-step task completion. Tools, prompts, and the runtime also need attention.</p>
+          <p>Imagine training a bug-fixing agent. It must read errors, find causes, edit code, run tests, and recover when a fix is wrong. We care about whether it completes the whole task.</p>
+          <p class="reading-note">This is a simplified breakdown of common responsibilities. Teams may combine stages or work in parallel. In RL, rollouts, grading, and parameter updates usually alternate repeatedly.</p>
+          <nav class="argument-map" aria-label="Training loop overview">
+            <p class="argument-map-title">One loop, four groups of work</p>
+            <ol>
+              <li><a href="#en-prepare"><span>01–04</span><b>Define the goal</b><small>Capability, evals, environment, tasks</small></a></li>
+              <li><a href="#en-signal"><span>05–08</span><b>Get learning signals</b><small>Runs, grades, analysis, data</small></a></li>
+              <li><a href="#en-learn"><span>09–10</span><b>Learn and verify</b><small>Update the model, measure progress</small></a></li>
+              <li><a href="#en-release"><span>11–13</span><b>Serve real users</b><small>Consolidate, release, collect feedback</small></a></li>
+            </ol>
+          </nav>
+        </section>
+        <section id="en-prepare">
+          <h2>2. Define and prepare</h2>
+          <p>Define what “can fix bugs” means, then prepare the yardstick and practice setting. The eval suite measures progress; the training task pool supplies practice. They share a goal, but their data must be separated.</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="Stages 1 to 4: capability, evals, environment, tasks">
+<table class="stage-table">
+<thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">Why it matters</th><th scope="col">Artifact</th></tr></thead>
+<tbody>
+<tr><th scope="row">01. Capability definition</th><td>Specify the goal: locate and fix a bug while preserving existing behavior.</td><td>A concrete goal aligns tasks, grading, and training.</td><td>Capability spec</td></tr>
+<tr><th scope="row">02. Eval construction</th><td>Turn the goal into testable tasks, define success, and measure the current model.</td><td>A baseline and a clear yardstick make improvement measurable.</td><td>Eval suite</td></tr>
+<tr><th scope="row">03. Environment</th><td>Provide a resettable repository, terminal, and test tools; record the initial state.</td><td>Clean starts keep infrastructure failures and leftover state from distorting results.</td><td>Environment</td></tr>
+<tr><th scope="row">04. Task generation</th><td>Collect real bugs, add synthetic and edge cases, and adjust difficulty and task proportions.</td><td>Practice shapes learning. Trivial tasks add little; impossible ones may offer little useful feedback.</td><td>Task pool</td></tr>
+</tbody>
+</table>
+</div>
+          <p class="reading-note">Start with a usable eval; refine the environment and grading together. Reserve held-out tasks, keeping near-duplicates out of both the training and test sets.</p>
+        </section>
+        <section id="en-signal">
+          <h2>3. Turn runs into learning signals</h2>
+          <p>Experience comes from actual attempts. A bug-fixing trajectory might be: read an error → search code → edit → fail tests → revise → pass tests.</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="Stages 5 to 8: rollout, grading, failure analysis, data">
+<table class="stage-table">
+<thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">Why it matters</th><th scope="col">Artifact</th></tr></thead>
+<tbody>
+<tr><th scope="row">05. Rollout</th><td>Run the current model on a bug; record observations, actions, tool results, and final state.</td><td>The trajectory reveals where the agent succeeds or goes off course.</td><td>Trajectories</td></tr>
+<tr><th scope="row">06. Grading</th><td>Check outcomes with tests or state checks. For open-ended work, calibrate model judges against humans.</td><td>Rewards guide learning. Guard against shortcuts such as deleting tests or tampering with grading.</td><td>Rewards</td></tr>
+<tr><th scope="row">07. Failure analysis</th><td>Read failed traces; distinguish model errors, ambiguous tasks, infrastructure issues, and grading bugs.</td><td>Different causes need different fixes. More model training cannot repair a broken environment.</td><td>Failure taxonomy</td></tr>
+<tr><th scope="row">08. Data construction</th><td>Build demonstrations, corrections, preference pairs, and RL tasks for further sampling.</td><td>Different failures need different learning signals. Raw logs need filtering, deduplication, and quality checks.</td><td>Training mixture</td></tr>
+</tbody>
+</table>
+</div>
+          <div class="insight"><strong>Grade the real outcome.</strong>“I fixed it” is a claim. Check that the bug is gone and existing behavior still works. Keep grading evidence beyond the agent’s control. See <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Anthropic’s guide to agent evaluations</a>.</div>
+        </section>
+        <section id="en-learn">
+          <h2>4. Train and evaluate</h2>
+          <p>Three common ways to turn experience into model behavior:</p>
+          <ul class="recipe-list">
+            <li><strong>SFT (supervised fine-tuning):</strong>imitate high-quality demonstrations of useful actions.</li>
+            <li><strong>RL (reinforcement learning):</strong>make repeated attempts and use rewards to adjust action choices.</li>
+            <li><strong>Distillation:</strong>teach a target model using a stronger model’s outputs or trajectories.</li>
+          </ul>
+          <p>These can be combined depending on data and feedback; a cycle need not use all three. <a href="https://arxiv.org/abs/2508.03680">Agent Lightning</a> illustrates how multi-step execution connects to RL.</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="Stages 9 to 10: training and evaluation">
+<table class="stage-table">
+<thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">Why it matters</th><th scope="col">Artifact</th></tr></thead>
+<tbody>
+<tr><th scope="row">09. Training</th><td>Choose a learning method, update model parameters, and save checkpoints.</td><td>Turn demonstrations or feedback into reusable behavior while checking training stability.</td><td>Checkpoints</td></tr>
+<tr><th scope="row">10. Evaluation</th><td>Measure new capabilities, existing capabilities, and safety on held-out tasks.</td><td>Higher training reward does not establish real progress. Check generalization and regressions.</td><td>Scorecard</td></tr>
+</tbody>
+</table>
+</div>
+          <p>Compare models with the same tools, tasks, and attempt budget, using repeated runs to observe variability. Otherwise, gains may come from more attempts or a changed runtime.</p>
+          <p class="reading-note"><strong>Infrastructure spans the loop:</strong>environment execution, tracing, grading, inference, and parameter updates must work together. A slow stage can leave GPUs waiting for data. Timeouts and version tracking affect efficiency and confidence in results.</p>
+        </section>
+        <section id="en-release">
+          <h2>5. Consolidate, release, repeat</h2>
+          <p>A specialized bug-fixing model must also work alongside other capabilities and survive real product use.</p>
+<div class="scroll-table" role="region" tabindex="0" aria-label="Stages 11 to 13: integration, launch gate, production">
+<table class="stage-table">
+<thead><tr><th scope="col">Stage</th><th scope="col">What happens</th><th scope="col">Why it matters</th><th scope="col">Artifact</th></tr></thead>
+<tbody>
+<tr><th scope="row">11. Integration</th><td>Where needed, consolidate specialized capabilities through mixed training, distillation, or other methods.</td><td>Individually strong skills can interfere when combined. Evaluate the consolidated model again.</td><td>Candidate model</td></tr>
+<tr><th scope="row">12. Launch gate</th><td>Check quality, safety, cost, and latency with the actual tools and runtime.</td><td>Model scores capture only part of system performance. Users need a reliable, affordable service.</td><td>Release decision</td></tr>
+<tr><th scope="row">13. Production</th><td>Use staged releases or A/B tests; collect user feedback and real failures.</td><td>Real usage exposes gaps in the task pool and guides the next training cycle.</td><td>New failures</td></tr>
+</tbody>
+</table>
+</div>
+          <div class="loop">Production failures → diagnose → improve tasks, environment, or grading → train → evaluate again</div>
+          <p>If the agent stops whenever tests fail, first check the tests and grader. Then add practice that requires diagnosing and correcting a failed fix. Verify progress on fresh tasks, and check that it has not learned to retry endlessly.</p>
+          <div class="takeaway"><strong>Revisit nine things each cycle:</strong>capability, evals, task distribution, environment, reward, learning method, infrastructure, consolidation, and regressions. Together, they determine what the agent practices, how it learns, and whether it can be delivered reliably.</div>
+        </section>
+        <section id="en-references" class="citation-section">
+          <h2>Further reading</h2>
+          <p class="citation-intro">This post synthesizes a workflow. These public sources expand on evaluations, training systems, and research context.</p>
+          <ol class="reference-list">
+            <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">Demystifying evals for AI agents</a> — trajectories, outcomes, grading, and regression checks.</li>
+            <li><a href="https://arxiv.org/abs/2508.03680">Agent Lightning: Train ANY AI Agents with Reinforcement Learning</a> — connecting agent execution records to RL training.</li>
+            <li><a href="https://arxiv.org/abs/2509.02547">The Landscape of Agentic Reinforcement Learning for LLMs: A Survey</a> — the <a href="https://arxiv.org/html/2509.02547v1">2025 survey version</a> covers capabilities, environments, and learning methods for multi-step agents.</li>
+          </ol>
+        </section>
+        <section id="en-citation" class="citation-section">
+          <h2>Cite this post</h2>
+          <div class="citation-block">
+            <div class="citation-toolbar">
+              <span>Suggested citation</span>
+              <button class="copy-button" type="button" data-copy-target="en-citation-text" data-copy-label="Copy citation" data-copied-label="Copied">Copy citation</button>
+            </div>
+            <pre id="en-citation-text" class="citation-code">Zhao, Henry Hengyuan. “Agent Training: From a Goal to a Reliable Agent.” Henry Hengyuan Zhao: Research Blog, September 15, 2026. https://zhaohengyuan1.github.io/blog/agent-training.html.</pre>
+          </div>
+          <div class="citation-block">
+            <div class="citation-toolbar">
+              <span>BibTeX</span>
+              <button class="copy-button" type="button" data-copy-target="en-bibtex" data-copy-label="Copy BibTeX" data-copied-label="Copied">Copy BibTeX</button>
+            </div>
+            <pre id="en-bibtex" class="citation-code">@misc{zhao2026agenttraining,
+  author       = {Zhao, Henry Hengyuan},
+  title        = {Agent Training: From a Goal to a Reliable Agent},
+  year         = {2026},
+  month        = sep,
+  howpublished = {Henry Hengyuan Zhao: Research Blog},
+  url          = {https://zhaohengyuan1.github.io/blog/agent-training.html},
+  note         = {Published September 15, 2026}
+}</pre>
+          </div>
+          <p class="citation-permalink">Permanent link: <a href="https://zhaohengyuan1.github.io/blog/agent-training.html">zhaohengyuan1.github.io/blog/agent-training.html</a></p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <span>© 2026 Henry Hengyuan Zhao</span>
+    <span><a href="../index.html">Back home</a> · <a href="#top">Back to top</a></span>
+  </footer>
+<script>
+    (function () {
+      var root = document.documentElement;
+      var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-set-language]"));
+      var panels = Array.prototype.slice.call(document.querySelectorAll("[data-language-panel]"));
+      var metadata = {
+        zh: {
+          lang: "zh-CN",
+          title: "Agent Training：从一个目标到一个可靠的 Agent",
+          description: "用一个修 bug 的例子，讲清 Agent Training 的 13 个阶段：做什么、为什么重要，以及每一步的产物。"
+        },
+        en: {
+          lang: "en",
+          title: "Agent Training: From a Goal to a Reliable Agent",
+          description: "A short guide to the 13 stages of agent training: what each stage does, why it matters, and what it produces."
+        }
+      };
+
+      function setLanguage(language, updateUrl, preservePosition) {
+        if (language !== "en" && language !== "zh") language = "zh";
+
+        var oldScrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        var scrollRatio = window.scrollY / oldScrollable;
+
+        root.dataset.lang = language;
+        root.lang = metadata[language].lang;
+        document.title = metadata[language].title;
+
+        var description = document.querySelector('meta[name="description"]');
+        if (description) description.setAttribute("content", metadata[language].description);
+
+        buttons.forEach(function (button) {
+          button.setAttribute("aria-pressed", String(button.dataset.setLanguage === language));
+        });
+        panels.forEach(function (panel) {
+          panel.setAttribute("aria-hidden", String(panel.dataset.languagePanel !== language));
+        });
+
+        try { window.localStorage.setItem("agent-training-blog-language", language); } catch (error) {}
+
+        if (updateUrl && window.history && window.history.replaceState) {
+          var url = new URL(window.location.href);
+          url.searchParams.set("lang", language);
+          window.history.replaceState({}, "", url.toString());
+        }
+
+        if (preservePosition) {
+          window.requestAnimationFrame(function () {
+            var newScrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            window.scrollTo(0, scrollRatio * newScrollable);
+          });
+        }
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          setLanguage(button.dataset.setLanguage, true, true);
+        });
+      });
+
+      function fallbackCopy(text) {
+        return new Promise(function (resolve, reject) {
+          var textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          textarea.style.pointerEvents = "none";
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          try {
+            if (!document.execCommand("copy")) throw new Error("Copy command failed");
+            resolve();
+          } catch (error) {
+            reject(error);
+          } finally {
+            document.body.removeChild(textarea);
+          }
+        });
+      }
+
+      function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(text).catch(function () {
+            return fallbackCopy(text);
+          });
+        }
+        return fallbackCopy(text);
+      }
+
+      Array.prototype.slice.call(document.querySelectorAll("[data-copy-target]")).forEach(function (button) {
+        button.setAttribute("aria-live", "polite");
+        button.addEventListener("click", function () {
+          var target = document.getElementById(button.dataset.copyTarget);
+          if (!target) return;
+
+          button.disabled = true;
+          copyText(target.textContent.trim()).then(function () {
+            button.textContent = button.dataset.copiedLabel;
+          }).catch(function () {
+            button.textContent = root.dataset.lang === "zh" ? "复制失败" : "Copy failed";
+          }).then(function () {
+            window.setTimeout(function () {
+              button.textContent = button.dataset.copyLabel;
+              button.disabled = false;
+            }, 1600);
+          });
+        });
+      });
+
+      setLanguage(root.dataset.lang || "zh", false, false);
+    }());
+  </script>
+</body>
+</html>
